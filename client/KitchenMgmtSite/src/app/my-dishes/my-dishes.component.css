@@ -1,0 +1,56 @@
+*{
+    direction: rtl;
+    text-align: right;
+    padding: 0;
+}
+
+.bg{
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: column;
+    min-height: 100%;
+    background-image: url('../../assets/images/mainmenuBg.jpg'); 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    background-blend-mode:normal; 
+    background-attachment: fixed;
+}
+
+.bg:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(128, 128, 128, 0.7);
+}
+
+.container{
+    z-index: 1;
+    margin-top: 5%;;
+}
+
+#accordionStock{
+    margin-bottom: 60px;
+}
+
+.card-header{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+.message{
+    color: rgb(167, 8, 8);
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.message>p{
+    padding: 0;
+    text-align: center;
+}

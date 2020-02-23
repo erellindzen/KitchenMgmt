@@ -1,0 +1,80 @@
+<div class="bg">
+    <app-select-dish (DishSelected)="setSelectedDish($event)" [userUpdated]="isUserUpdated"></app-select-dish>
+    <div class="container dishForm">
+        <h2 class="title">{{ dish.title }}</h2>
+        <form #f="ngForm" (ngSubmit)="sendForm(f.valid)"> 
+            <div class="form-group">
+                <label for="titleInput">שם</label>
+                <input type="text" class="form-control" id="titleInput" placeholder="שם המנה" required #title="ngModel" name="dish.title" [(ngModel)]="dish.title">
+            </div>
+            <div class="form-group">
+                <label for="durationInput">זמן הכנה</label>
+                <input type="number" class="form-control" id="durationInput" placeholder="זמן הכנה בדקות" required #duration="ngModel" name="dish.duration" [(ngModel)]="dish.duration">
+                <small *ngIf="duration.dirty && dish.duration <= 0" class="form-text text-danger">זמן ההכנה חייב להיות חיובי</small>
+            </div>
+            <h5>מצרכים</h5>
+            <div class="form-group ingredients" *ngFor="let ingredient of dish.ingredients; let i=index">
+                <div class="form-row">
+                    <img class="removeButton" src="../../assets/images/remove_button.png" title="הסר מוצר" (click)="removeIngredient(ingredient.id, i)">
+                    <div class="col-4">
+                        <textarea readonly type="text" rows="1" class="form-control ingredientInList">{{ getIngredientsDetails(ingredient.id) }}</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group ingredients">
+                <div class="form-row">
+                    <img class="addButton" src="../../assets/images/add_button.png" title="הוסף מוצר" (click)="addIngredient()">
+                    <div class="col">
+                        <select class="form-control" [(ngModel)]="selectedNewIngredient" name="selectedNewIngredient">
+                            <option *ngFor="let ing of ingredients" [ngValue]="ing">{{ ing.title }}</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input type="number" class="form-control" [placeholder]="selectedNewIngredient.unitTitle" #quantity="ngModel" name="selectedNewIngredient.quantity" [(ngModel)]="selectedNewIngredient.quantity">
+                        <small *ngIf="!selectedNewIngredient.quantity || selectedNewIngredient.quantity <= 0" class="form-text text-danger">הכמות חייבת להיות חיובית</small>
+                    </div>
+                </div>
+                <small *ngIf="dish.ingredients.length === 0" class="form-text text-danger">המנה חייבת להכיל לפחות רכיב אחד</small>
+                <div class="form-row">
+                    <label for="sumPrice">עלות המצרכים למנה:</label>
+                    <input id="sumPrice" type="text" readonly class="form-control" #IngredientSumPrice="ngModel" name="sumPrice" [(ngModel)]="sumPrice">
+                </div>
+            </div>
+            <h5>שלבי ההכנה</h5>
+            <div class="form-group preperationStep" *ngFor="let step of dish.preperationSteps; let i = index">
+                <div class="form-row">
+                    <img class="removeButton" src="../../assets/images/remove_button.png" title="הסר שלב" (click)="removeStep(i)">
+                    <div class="col">
+                        <textarea readonly type="text" class="form-control">{{ step }}</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group preperationStep">
+                <label for="stepInput">  שלב {{ dish.preperationSteps.length + 1 }}</label>
+                <img class="addButton" src="../../assets/images/add_button.png" title="הוסף את השלב" (click)="addStep()">
+                <textarea class="form-control" id="stepInput" placeholder="הוסף שלב חדש" #step="ngModel" name="newStep" [(ngModel)]="newStep" rows="3"></textarea>
+                <small *ngIf="this.newStep && this.newStep.length < 3" class="form-text text-danger">השלב חייב להכיל לפחות 3 תווים</small>
+                <small *ngIf="dish.preperationSteps.length === 0" class="form-text text-danger">המנה חייבת להכיל לפחות שלב הכנה אחד</small>
+            </div>
+            <div class="form-group">
+                <label for="numberOfDinesInput">כמות סועדים</label>
+                <input type="number" class="form-control" id="numberOfDinesInput" placeholder="כמות הסועדים שהמנה מיועדת אליהם" required #numberOfDines="ngModel" name="dish.numberOfDines" [(ngModel)]="dish.numberOfDines">
+                <small *ngIf="numberOfDines.dirty && dish.numberOfDines <= 0" class="form-text text-danger">כמות הסועדים המינימלית היא 1</small>
+            </div>
+            <div class="form-group">
+                <label for="imageUrlInput">שם תמונת המנה</label>
+                <input type="text" class="form-control" id="imageUrlInput" placeholder="שם התמונה שמייצגת את המנה" required #imageUrl="ngModel" name="dish.imageUrl" [(ngModel)]="dish.imageUrl">
+            </div>
+            <div class="form-group" *ngIf="dish.title === 'מנה חדשה'">
+                <label for="categorySelect">קטגוריה של המנה</label>
+                <select id="categorySelect" class="form-control" [(ngModel)]="dish.categoryId" name="dish.categoryId">
+                    <option *ngFor="let cat of categories" [ngValue]="cat.id">{{ cat.title }}</option>
+                </select>
+                <small *ngIf="!dish.categoryId" class="form-text text-danger">חייבים לשייך את המנה לקטגוריה</small>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!f.valid" *ngIf="dish.title === 'מנה חדשה'">הוסף</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!f.valid" *ngIf="dish.title != 'מנה חדשה'">עדכן</button>
+        </form>
+        <p class="error-message" *ngIf="isErrorOnResponse">היתה שגיאה בהוספת המשלוח!</p>
+    </div>
+</div>

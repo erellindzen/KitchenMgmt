@@ -1,0 +1,13 @@
+<div class="bg">
+    <img class="back" src="../../assets/images/back.png" (click)="onBackPressed()" title="חזרה לקטגורית הראשיות"    >
+    <h2 class="title">{{ category.title }}</h2>
+    <div class="dish-list">
+        <div class="dish" [ngClass]="{ chosen: chosenDish === dish.id }" *ngFor="let dish of dishes">
+            <div class="dishToSelect" (click)="onDishClick(dish.id)">
+                <img [src]="getDishImage(dish.imageUrl)" class="dish-image">
+                <h5 class="dish-title">{{ dish.title }}</h5>
+            </div>
+            <app-dish-user-form [ngClass]="{ hideElement : chosenDish != dish.id }"  [dishId]="dish.id" (onAssociate)="chosenDish = -1"></app-dish-user-form>
+        </div>
+    </div>
+</div>

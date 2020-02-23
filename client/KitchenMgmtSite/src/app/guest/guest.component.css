@@ -1,0 +1,34 @@
+.guestNav{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 5px auto;
+}
+
+.nav-item{
+    margin: 0 10px;
+}
+
+.nav-item:hover{
+    cursor: pointer;
+    box-shadow: black;
+}
+
+.nav-pills .nav-link, .nav-pills .show>.nav-link {
+    color: #000;
+    background-image: linear-gradient(to right, rgb(240, 227, 227), rgb(235, 226, 226));
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff;
+    background-image: linear-gradient(to right, rgb(165, 156, 156), rgb(185, 179, 179));
+    box-shadow: 5px 5px rgba(58, 56, 56, 0.534);
+}
+
+.guestForms{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+}

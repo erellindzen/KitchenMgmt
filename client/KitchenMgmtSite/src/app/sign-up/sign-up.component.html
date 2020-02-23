@@ -1,0 +1,34 @@
+<div class="container-fluid">
+    <form #f="ngForm" (ngSubmit)="sendForm(f.valid)">
+        <div class="formElements">
+             <h3 class="title">{{title}}</h3>
+             <div class="signup-input-container">
+                <input class="signupInput signupInput-Heb" id="signupFirstName" required type="text"  #username="ngModel" name="user.firstName" [(ngModel)]="user.firstName">
+                <label class="signupLabel" for="signupFirstName">שם פרטי</label>
+            </div>
+            <div class="signup-input-container">
+                <input class="signupInput signupInput-Heb" id="signupLastName" required type="text"  #username="ngModel" name="user.lastName" [(ngModel)]="user.lastName">
+                <label class="signupLabel" for="signupLastName">שם משפחה</label>
+            </div>
+             <div class="signup-input-container">
+                 <input class="signupInput" id="signupUser" required type="text"  #username="ngModel" name="user.username" [(ngModel)]="user.username">
+                 <label class="signupLabel" for="signupUser">שם משתמש</label>
+             </div>
+             <div class="signup-input-container">
+                 <input class="signupInput" id="signupPassword" required type="password" name="user.password" #password="ngModel"  [(ngModel)]="user.password">
+                 <label class="signupLabel" for="signupPassword">סיסמה</label>
+             </div>
+             <div class="signup-input-container">
+                <input class="signupInput" id="signupPassword2" required type="password" name="user.password2" #password2="ngModel"  [(ngModel)]="user.password2">
+                <label class="signupLabel" for="signupPassword2">חזור על הסיסמה</label>
+            </div>
+             <button class="signupButton" [disabled]="!f.valid"> הירשם </button>
+             <small *ngIf="isError" class="form-text text-danger">{{ errorMessage }}</small>
+         </div>
+     </form>
+ </div>
+     
+     
+     
+     
+     

@@ -1,0 +1,15 @@
+<div class="container shippingForm">
+    <form #f="ngForm" (ngSubmit)="sendForm(f.valid)"> 
+        <div class="form-group">
+            <label for="quantityInput">כמות</label>
+            <input type="number" class="form-control" id="quantityInput" placeholder="כמות" required #quantity="ngModel" name="shipping.quantity" [(ngModel)]="shipping.quantity">
+            <small *ngIf="this.shipping.quantity && this.shipping.quantity <= 0" class="form-text  text-danger">הכמות חייבת להיות חיובית</small>
+        </div>
+        <div class="form-group" *ngIf="ingredientCanExpired">
+            <label for="expirationInput">פג תוקף</label>
+            <input type="date" class="form-control" id="expirationInput" placeholder="תאריך פג תוקף" required #expiration="ngModel" name="shipping.expirationDate" [(ngModel)]="shipping.expirationDate">
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!f.valid">הוסף</button>
+    </form>
+    <p class="error-message" *ngIf="isErrorOnResponse">היתה שגיאה בהוספת המשלוח!</p>
+</div>

@@ -1,0 +1,23 @@
+<div class="bg">
+    <div class="container">
+        <div class="accordion" id="accordionStock" *ngIf="!isEmpty()">
+            <div class="card" *ngFor="let dish of myDishes">
+                <div class="card-header" [id]="dish.id">
+                    <h2 class="mb-0"> {{ dish.dishTitle }} </h2>
+                    <button class="btn btn-link" type="button" (click)="onCardPressed(dish.id)" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" [attr.aria-controls]="dish.id">
+                        {{ getHeaderButtonText(dish.id) }}
+                    </button>
+                </div>
+            
+                <div [id]="dish.id + dish.dishTitle" class="collapse" [ngClass]="{ show : cardPressed==dish.id}" [attr.aria-labelledby]="dish.id" data-parent="#accordionStock">
+                    <div class="card-body">
+                        <app-dish [dish]="currentDish" (dishServed)="refreshList()"></app-dish>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="message" *ngIf="isEmpty()">
+            <p>אין כרגע מנות להכנה עבורך</p>
+        </div>
+    </div>
+</div>

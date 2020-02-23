@@ -1,0 +1,28 @@
+<div class="detailedDish">
+    <p id="duration">זמן הכנה: {{ dish.duration }} דקות</p>
+    <p id="numOfDines">הארוחה מיועדת ל-{{ dish.numberOfDines }} סועדים</p>
+    <div id="ingredients">
+        <p>המצרכים הם:</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">שם</th>
+                    <th scope="col">כמות</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ing of dish.ingerdients">
+                    <td>{{ ing.title }}</td>
+                    <td>{{ ing.quantity + ' ' + ing.unitTitle }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="preperationSteps">
+        <p class="title">הוראות הכנה:</p>
+        <ul id="preperationStepList">
+            <li class="step" *ngFor="let step of dish.preperationSteps">{{ step }}</li>
+        </ul>
+    </div>   
+    <button id="submitBtn" class="btn btn-primary" (click)="finishCook()">סיימתי לבשל</button> 
+</div>

@@ -1,0 +1,14 @@
+<nav class="guestNav">
+  <ul class="nav nav-pills">
+    <li class="nav-item" (click)="toLogin()">
+      <a class="nav-link" [ngClass]="{ active: isLogin}">כניסה</a>
+    </li>
+    <li class="nav-item" (click)="toSignUp()">
+      <a class="nav-link" [ngClass]="{ active: isSignUp}">הרשמה</a>
+    </li>
+  </ul>
+</nav>
+<div class="guestForms">
+    <app-login *ngIf="isLogin"></app-login>
+    <app-sign-up *ngIf="isSignUp"></app-sign-up>
+</div>

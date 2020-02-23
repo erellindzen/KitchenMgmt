@@ -1,0 +1,17 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+#footerStrip{
+    background-color: rgba(23, 23, 23);
+    height: 80px;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: column;
+}
+
+.copyright{
+    text-align: center;
+    color: #ffffff;
+}

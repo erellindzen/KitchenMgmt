@@ -1,0 +1,124 @@
+form{
+    background-color: rgba(128, 128, 128, 0.738);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.formElements{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid black;
+    margin: 5vh 20px;
+    padding: 40px;
+}
+
+.title{
+    padding-bottom: 20px;
+    color: #fff;
+}
+
+.signup-input-container{
+    position: relative;
+}
+
+.signupInput{
+    margin: 10px 20px;
+    background-clip: padding-box;
+    background-color: #fff;
+    border: none;
+    border-radius: 0;
+    -webkit-box-shadow: 0 20px 20px 0 rgba(0,0,0,0);
+    box-shadow: 0 20px 20px 0 rgba(0,0,0,0);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: block;
+    font-size: 17px;
+    line-height: 1.11;
+    padding: 26px 20px 10px;
+    width: 100%;
+    -webkit-transition-duration: .15s;
+    transition-duration: .15s;
+    -webkit-transition-property: -webkit-box-shadow;
+    transition-property: -webkit-box-shadow;
+    transition-property: box-shadow;
+    transition-property: box-shadow,-webkit-box-shadow;
+    text-align: left;
+    direction: ltr;
+}
+
+.signupInput-Heb{
+    text-align: right;
+    direction: rtl;
+}
+
+.signupInput:focus{
+    -webkit-box-shadow: 0 20px 20px 0 rgba(0,0,0,.11);
+    box-shadow: 0 20px 20px 0 rgba(0,0,0,.11);
+}
+
+.signupLabel{
+    color: #acacae;
+    display: block;
+    font-size: 17px;
+    right: 28px;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    -webkit-transform: translateY(75%);
+    -ms-transform: translateY(75%);
+    transform: translateY(75%);
+    -webkit-transition-duration: .15s;
+    transition-duration: .15s;
+    -webkit-transition-property: font-size,-webkit-transform;
+    transition-property: font-size,-webkit-transform;
+    transition-property: font-size,transform;
+    transition-property: font-size,transform,-webkit-transform;
+}
+
+.signupInput.is-filled+.signupLabel, .signupInput:focus+.signupLabel, .signupInput:valid+.signupLabel {
+    font-size: 12px;
+    -webkit-transform: translateY(50%);
+    -ms-transform: translateY(50%);
+    transform: translateY(50%);
+}
+
+.signupButton{
+    margin: 30px 20px;
+    background-color: rgba(56, 144, 56, 0.685);
+    color: #ffffff;
+    border: 2px solid;
+    border-radius: 35px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 14px 30px;
+    position: relative;
+    text-align: center;
+    -webkit-transition-duration: .15s;
+    transition-duration: .15s;
+    -webkit-transition-property: background-color,color,opacity;
+    transition-property: background-color,color,opacity;
+    min-width: 200px;
+}
+
+button:disabled, button:disabled:hover{
+    color: rgb(65, 62, 62);
+}
+
+button:hover{
+    color:#000
+}
+
+button:focus {
+    border: 2px solid rgb(65, 65, 211);
+    outline: 0;
+}
+
+.text-danger{
+    font-size: 1em;
+}

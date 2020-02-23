@@ -1,0 +1,50 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.welcome-section{
+    background-image: url('../../assets/images/welcomeBg.jpg');
+    height: 1270px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    direction: rtl;
+    text-align: center;
+    z-index: 1;
+    animation: slide 30s linear infinite;
+    -webkit-animation: slide 30s linear infinite;
+}
+
+@keyframes slide {
+    from { background-position: 0 0; }
+    to { background-position: -400px 0; }
+}
+
+@-webkit-keyframes slide {
+    from { background-position: 0 0; }
+    to { background-position: -400px 0; }
+}
+
+.logo{
+    width: 45%;
+    margin: 0 auto;
+    font-weight: 600;
+}
+
+h1{
+    color: #ffffff;
+    font-size: 3em;
+    z-index: 2;
+}
+h2{
+    color: #ffffff;
+    font-size: 3em;
+    z-index: 2;
+} 
+
+app-guest{
+    margin-top: 50px;
+    z-index: 2;
+}
+

@@ -1,0 +1,22 @@
+<div class="container-fluid">
+   <form #f="ngForm" (ngSubmit)="sendForm(f.valid)">
+       <div class="formElements">
+            <h3 class="title">{{title}}</h3>
+            <div class="login-input-container">
+                <input class="loginInput" id="loginUser" required type="text"  #username="ngModel" name="user.username" [(ngModel)]="user.username">
+                <label class="loginLabel" for="loginUser">שם משתמש</label>
+            </div>
+            <div class="login-input-container">
+                <input class="loginInput" id="loginPassword" required type="password" name="user.password" #password="ngModel"  [(ngModel)]="user.password">
+                <label class="loginLabel" for="loginPassword">סיסמה</label>
+            </div>
+            <button class="loginButton" [disabled]="!f.valid"> היכנס </button>
+            <small *ngIf="isError" class="form-text text-danger">{{ errorMessage }}</small>
+        </div>
+    </form>
+</div>
+    
+    
+    
+    
+    

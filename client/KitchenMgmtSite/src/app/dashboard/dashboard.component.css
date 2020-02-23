@@ -1,0 +1,107 @@
+*{
+    direction: rtl;
+    padding: 0;
+    margin: 0;
+}
+
+.bg{
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: column;
+    min-height: 100%;
+    background-image: url('../../assets/images/mainmenuBg.jpg'); 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    background-blend-mode:normal; 
+    background-attachment: fixed;
+}
+
+.bg:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(128, 128, 128, 0.6);
+}
+
+.container-fluid{
+    z-index: 1;
+}
+
+.dateForm{
+    margin-top: 100px;
+    font-size: 24px;
+    text-align: center;
+    font-weight: 600;
+    color: #fff;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.form-group input{
+    margin: 2px 8px;
+}
+
+.cookSelectLabel{
+    margin-top: 20px;
+    margin-left: 29px;
+}
+
+.cookSelect{
+    margin-top: 20px;
+    width: 18%;
+    font-size: 16px;
+    padding-right: 15px;
+}
+
+.btn{
+    margin-top: 20px;
+    border-width: 2px;
+    border-radius: 1.25em;
+    color: #fff;
+}
+
+.form-button{
+    padding: 3px 15px;
+    font-size: 24px;
+    margin-right: 20px;
+    background-color: rgba(189, 184, 184, 0.65);
+}
+
+.text-danger{
+    color: #2f1a1c !important;
+}
+
+.form-text{
+    font-size: 140%;
+    font-weight: 600;
+}
+
+.results{
+    margin-top: 50px;
+}
+
+.form-group-result{
+    text-align: right;
+    padding-right: 100px;
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+.form-group-result label{
+    margin-left: 15px;
+}
+
+.form-group-result input{
+    text-align: center;
+    width: 100px;
+}

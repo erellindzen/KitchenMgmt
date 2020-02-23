@@ -1,0 +1,74 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+#headerStrip{
+    height: 70px;
+    background-color: rgb(164, 219, 200);
+    display: flex;
+    flex-flow: row;
+    align-items: center;   
+}
+
+.logoDiv{
+    flex: 3;
+    text-align: left;
+    margin-left: 5%;
+}
+
+.logo{
+    height: 80px;
+    
+}
+
+.logout{
+    flex: 3;
+    margin-right: 5%;
+    font-size: 22px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.892);
+    text-align: right;
+}
+
+.logout:hover{
+    color: #fff;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.logout:active{
+    color: rgb(16, 16, 196);
+    font-size: 18px;
+}
+
+nav{
+    flex: 6;
+    direction: rtl;
+    line-height: 25px;
+}
+
+.nav{
+    margin-top: 10px;
+}
+
+.nav-link{
+    color: rgba(0, 0, 0, 0.892);
+    font-size: 22px;
+}
+
+.nav-link.active{
+    color: #fff;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.nav-link:hover{
+    font-size: 23px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.nav-link.active:hover{
+    font-size: 30px;
+}

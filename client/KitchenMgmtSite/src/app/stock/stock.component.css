@@ -1,0 +1,63 @@
+*{
+    direction: rtl;
+    text-align: right;
+}
+
+.bg{
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: column;
+    min-height: 100%;
+    background-image: url('../../assets/images/mainmenuBg.jpg'); 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    background-blend-mode:normal; 
+    background-attachment: fixed;
+}
+
+.bg:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(128, 128, 128, 0.7);
+}
+
+.container{
+    z-index: 1;
+}
+
+#accordionStock{
+    margin-bottom: 60px;
+}
+
+.addButtonImage{
+    height:50px;
+    margin-bottom: 30px; 
+    margin-right: 20px;
+}
+
+.addButtonImage:hover{
+    cursor:pointer;
+}
+
+.message{
+    font-size: 1.4em;
+    font-weight: 600;;
+    color: rgb(182, 12, 12);
+    margin: 50px;
+}
+
+.card-header{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+.small-btn{
+    height: 40px;
+}

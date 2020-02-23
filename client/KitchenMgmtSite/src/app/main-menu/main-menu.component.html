@@ -1,0 +1,7 @@
+<div class="mainCategories">
+    <div class="category" *ngFor="let category of categories" text="jsdgfj" (click)="categoryPressed(category.id)">
+        <img class="categoryImage" [src]="category.image">
+        <h3 class="category-title">{{ category.title }}</h3>
+    </div>
+</div>
+    

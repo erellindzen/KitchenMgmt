@@ -1,0 +1,22 @@
+.detailedDish{
+    padding: 30px 40px;
+}
+
+#ingredients{
+    margin-top: 40px;
+}
+
+.title{
+    text-decoration: underline;
+    font-weight: 700;
+    margin-top: 30px;
+}
+
+#preperationStepList{
+    margin-right: 50px;
+}
+
+#submitBtn{
+    float: left;
+    margin: 30px 0;
+}

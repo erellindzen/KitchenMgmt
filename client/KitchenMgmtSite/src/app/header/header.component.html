@@ -1,0 +1,17 @@
+<div class="container-fluid">
+    <div id="headerStrip">
+        <div class="logoDiv">
+            <img class="logo" src="../../assets//images/logo.png">
+        </div>
+        <nav *ngIf="this.auth.isLoggedIn()">
+            <ul class="nav justify-content-around">
+                <li class="nav-item" *ngFor="let nav of navs">
+                    <a class="nav-link" [ngClass]="{ active: checkIfActive(nav.navigation)}" (click)="changeLink(nav.id)">{{ nav.title }}</a>
+                </li>
+              </ul>
+        </nav>
+        <div class="logout" *ngIf="this.auth.isLoggedIn()">
+            <a (click)="logout()">יציאה</a>
+        </div>
+    </div>    
+</div>

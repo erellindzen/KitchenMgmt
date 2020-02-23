@@ -1,0 +1,41 @@
+<div class="bg">
+    <div class="container-fluid">
+        <form class="dateForm" #f="ngForm" (submit)=getData(f.valid)>
+            <div class="form-group">
+                <label for="fromDate">הכנס תקופה לבדיקה: מ-</label>
+                <input type="date" id="fromDate" required #FromDate="ngModel" name="fromDate" [(ngModel)]="fromDate">
+                <label for="toDate">עד</label>
+                <input type="date" id="toDate" required #ToDate="ngModel" name="toDate" [(ngModel)]="toDate">
+            </div>
+            <div class="form-group">
+                <label class="cookSelectLabel">בחר טבח:</label>
+                <select class="form-control cookSelect" #cookSelector="ngModel" [(ngModel)]="selectedCook" name="selectedCook" required>
+                    <option [ngValue]="0">כולם</option>
+                    <option *ngFor="let cook of cooks" [ngValue]="cook.id">{{ cook.firstName + ' ' + cook.lastName }}</option>
+                </select>
+            </div>
+            <button class="btn btn-primary form-button" [disabled]="!f.valid">הצג</button>
+            <small class="form-text text-danger" *ngIf="formError">טווח התאריכים אינו חוקי</small>
+        </form>
+        <div class="results">
+            <div class="form-group-result">
+                <label for="sumDishCooked">סה"כ מנות מיוצרות:</label>
+                <input class="resultInput" type="text" id="sumDishCooked" readonly [value]="sumDishCooked">
+            </div>
+            <div class="form-group-result">
+                <label for="sumProductCost">סה"כ עלויות ייצור:</label>
+                <input class="resultInput" type="text" id="sumProductCost" readonly [value]="sumProductCost">
+            </div>
+            <div class="chart-wrapper">
+                <canvas baseChart 
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="barChartLegend"
+                [chartType]="barChartType">
+              </canvas>
+            </div>
+        </div>
+    </div>
+</div>

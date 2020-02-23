@@ -1,0 +1,19 @@
+.dish-user-input-container{
+    text-align: center;
+    width: 50%;
+    margin: 20px auto 10px auto;
+}
+
+.cookSelect{
+    font-size: 16px;
+}
+
+.sendButton{
+    margin-bottom: 20px;
+}
+
+.error-message{
+    color: rgb(128, 2, 2);
+    font-size:24px;
+    font-weight: 600;
+}

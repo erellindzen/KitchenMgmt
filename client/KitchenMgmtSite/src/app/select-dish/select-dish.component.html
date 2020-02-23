@@ -1,0 +1,5 @@
+<div class="container">
+    <select class="form-control dish-select" [(ngModel)]="selectedDish" name="selectedDish" (change)="onSelectDish()">
+        <option *ngFor="let dish of dishes" [ngValue]="dish.id" [selected]="    ">{{ getName(dish.id) }}</option>
+    </select>
+</div>
