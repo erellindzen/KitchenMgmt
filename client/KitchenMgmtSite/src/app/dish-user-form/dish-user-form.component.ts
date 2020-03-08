@@ -10,7 +10,6 @@ export class DishUserFormComponent implements OnInit {
   private cooks = [];
   private selectedCook = -1;
   private isError = false;
-  private ingredientMissing = false;
 
   @Input()
   dishId: number;
@@ -42,13 +41,7 @@ export class DishUserFormComponent implements OnInit {
 
     this.kmws.associateDishToCook(this.dishId, this.selectedCook)
       .subscribe(
-        data => {
-          if(data.status === 204){
-            this.ingredientMissing = true;
-          }else{
-            this.onAssociate.emit(true);
-          }
-        },
+        data => this.onAssociate.emit(true),
         error => this.isError = true
       );
   }

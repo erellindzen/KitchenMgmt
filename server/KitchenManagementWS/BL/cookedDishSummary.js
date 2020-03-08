@@ -85,37 +85,18 @@ module.exports.create = (dishId, userId) => {
             reject(new KMError(400, "Missed parameters."));
         }
 
-        userBl.getById(userId)
-            .then(user => {
-                dishBl.getById(dishId)
-                    .then(dish => {
-                        let itemsNotInStock = dish.ingerdients.filter(x => !x.existInStock);
-                        if(itemsNotInStock.length > 0){
-                            reject(new KMError(204, "items not in stock"));
-                        }
-                        else{
-                            let promises = [];
-                            
-                            dish.ingerdients.forEach(ingredient => {
-                                promises.push(ingredientsBl.use(ingredient.id, ingredient.quantity));
-                            });
-
-                            Promise.all(promises)
-                                .then(ingredientsResult => {
-                                    let cost = 0;
-                                    cost = ingredientsResult.reduce((x, y) => x+y);
-                                    
-                                    cdsRepository.getMaxId()
-                                        .then(data => {    
-                                            let id = (data.length === 0) ? 1 : data[0].id + 1;
-                                            cdsRepository.create(id, dishId, dish.title, dish.categoryId, new Date(), null, user.id, `${user.firstName} ${user.lastName}`, cost)
-                                                .then(data => resolve(data))
-                                                .catch(err => reject(new KMError(500, err)));
-                                        })
+        dishBl.getById(dishId)
+            .then(dish => {
+                userBl.getById(userId)
+                    .then(user => {
+                        cdsRepository.getMaxId()
+                            .then(data => {    
+                                let id = (data.length === 0) ? 1 : data[0].id + 1;
+                                cdsRepository.create(id, dishId, dish.title, dish.categoryId, new Date(), null, user.id, `${user.firstName} ${user.lastName}`, 0)
+                                    .then(data => resolve(data))
                                     .catch(err => reject(new KMError(500, err)));
-                                })
-                                .catch(err => reject(err));
-                        }
+                            })
+                            .catch(err => reject(new KMError(500, err)));
                     })
                     .catch(err => reject(err));
             })
@@ -135,9 +116,32 @@ module.exports.setCookedDate = (id) => {
                 if(!cds){
                     reject(new KMError(404, "Item is not exist"));
                 }else{
-                    cdsRepository.update(id, null, null, null, null, new Date(), null, null, null)
-                        .then(data => resolve(data))
-                        .catch(err => reject(new KMError(500, err)));
+                    dishBl.getById(cds.dishId)
+                        .then(dish => {
+                            let itemsNotInStock = dish.ingerdients.filter(x => !x.existInStock);
+                            if(itemsNotInStock.length > 0){
+                                reject(new KMError(204, "items not in stock"));
+                            }
+                            else{
+                                let promises = [];
+                                
+                                dish.ingerdients.forEach(ingredient => {
+                                    promises.push(ingredientsBl.use(ingredient.id, ingredient.quantity));
+                                });
+
+                                Promise.all(promises)
+                                    .then(ingredientsResult => {
+                                        let cost = 0;
+                                        cost = ingredientsResult.reduce((x, y) => x+y);
+                                        
+                                        cdsRepository.update(id, null, null, null, null, new Date(), null, null, cost)
+                                            .then(data => resolve(data))
+                                            .catch(err => reject(new KMError(500, err)));
+                                    })
+                                    .catch(err => reject(err));
+                            }
+                        })
+                        .catch(err => reject(err));
                 }
             })
             .catch(err => reject(new KMError(500, err)));

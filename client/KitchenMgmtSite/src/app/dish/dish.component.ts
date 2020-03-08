@@ -9,6 +9,8 @@ import { KmwsService } from '../kmws.service';
 })
 export class DishComponent implements OnInit {
 
+  private finishCookError = false;
+
   @Input()
   dish: Dish;
 
@@ -23,8 +25,16 @@ export class DishComponent implements OnInit {
   finishCook(){
     this.kmws.updateDishReady(this.dish.id)
       .subscribe(
-        data => this.dishServed.emit(this.dish.id),
-        error => this.dishServed.emit(this.dish.id)
+        data => {
+          if(data.status != 200){
+            this.finishCookError = true
+          }
+          else{
+            this.finishCookError = false;
+            this.dishServed.emit(this.dish.id);
+          }
+        },
+        error => this.finishCookError = true
       );
   }
 
