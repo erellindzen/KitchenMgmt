@@ -68,7 +68,6 @@ export class DashboardComponent implements OnInit {
           this.sumDishCooked = 0;
           this.sumProductCost = 0;
 
-          console.log(data.body);
           if(this.selectedCook === 0){
             this.sumDishCooked = (data.body as Array<any>).length;
           }else{
