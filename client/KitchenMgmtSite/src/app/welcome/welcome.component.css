@@ -5,7 +5,8 @@
 
 .welcome-section{
     background-image: url('../../assets/images/welcomeBg.jpg');
-    height: 1270px;
+    background-size: cover;
+    height: 1670px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
