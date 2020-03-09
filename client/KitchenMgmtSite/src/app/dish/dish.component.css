@@ -10,6 +10,14 @@
     color: red;
 }
 
+.outOfStock{
+    height: 55Px;
+}
+
+.imageNotActive{
+    visibility: hidden;
+}
+
 .title{
     text-decoration: underline;
     font-weight: 700;

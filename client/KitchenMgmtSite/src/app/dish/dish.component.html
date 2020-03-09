@@ -8,12 +8,14 @@
                 <tr>
                     <th scope="col">שם</th>
                     <th scope="col">כמות</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let ing of dish.ingerdients" [ngClass]="{alert: !ing.existInStock}">
                     <td>{{ ing.title }}</td>
                     <td>{{ ing.quantity + ' ' + ing.unitTitle }}</td>
+                    <td><img [ngClass]="{imageNotActive: ing.existInStock}" class="outOfStock" src="../../assets/images/outOfStock.jpg"></td>
                 </tr>
             </tbody>
         </table>
