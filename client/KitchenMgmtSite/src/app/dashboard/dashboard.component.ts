@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
   private sumProductCost: number = 0;
   private cooks = [];
   private selectedCook = -1;
+  
   barChartOptions: ChartOptions = {
     responsive: true,
     legend: {
