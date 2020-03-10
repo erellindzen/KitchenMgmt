@@ -18,14 +18,32 @@ export class DashboardComponent implements OnInit {
   private selectedCook = -1;
   barChartOptions: ChartOptions = {
     responsive: true,
+    legend: {
+      labels: {
+         fontColor: 'white',
+         fontFamily: "`David Libre`, `serif`",
+         fontSize: 20
+      }
+  }
   };
-  barChartLabels: Label[] = [];
+  barChartLabels = [];
   barChartType: ChartType = 'bar';
   barChartLegend = true;
   barChartPlugins = [];
 
   barChartData: ChartDataSets[] = [
-    { data: [], label: 'קטגוריות ראשיות' }
+    { 
+      barPercentage: 0.8,
+      data: [1, 1, 1, 1, 1, 1], 
+      label: 'מנות שהוכנוט לפי קטגוריות',
+      backgroundColor: 'rgba(54, 162, 235, 0.6)',
+      borderColor: 'rgba(54, 162, 235, 1)',
+      borderWidth: 2,
+      hoverBackgroundColor: 'rgba(54, 162, 235, 1)',
+      hoverBorderColor: 'rgba(54, 162, 235, 1)',
+      hoverBorderWidth: 2,
+      barThickness: 'flex'
+    }
   ];
 
   constructor(private kmws: KmwsService) {
@@ -42,11 +60,11 @@ export class DashboardComponent implements OnInit {
       );
 
       this.kmws.getCategories()
-      .subscribe(
-        categories => {
-          this.barChartLabels = categories.body.map(x => x.title),
-          err => this.barChartLabels = []
-      });
+       .subscribe(
+         categories => {
+           this.barChartLabels = categories.body.map(x => x.title),
+           err => this.barChartLabels = []
+       });
   }
 
   ngOnInit() {
