@@ -16,16 +16,32 @@ export class DashboardComponent implements OnInit {
   private sumProductCost: number = 0;
   private cooks = [];
   private selectedCook = -1;
+  private categories = [];
   
   barChartOptions: ChartOptions = {
     responsive: true,
     legend: {
+      display: false,
       labels: {
          fontColor: 'white',
          fontFamily: "`David Libre`, `serif`",
          fontSize: 20
       }
-  }
+    },
+    scales: {
+      xAxes: [{
+        display: false,
+        ticks: {
+          min: 0
+        }
+      }],
+      yAxes: [{
+        display: false,
+        ticks: {
+          min: 0
+        }
+      }],
+    }
   };
   barChartLabels = [];
   barChartType: ChartType = 'bar';
@@ -35,8 +51,9 @@ export class DashboardComponent implements OnInit {
   barChartData: ChartDataSets[] = [
     { 
       barPercentage: 0.8,
-      data: [1, 1, 1, 1, 1, 1], 
-      label: 'מנות שהוכנוט לפי קטגוריות',
+      categoryPercentage: 0.9,
+      data: [], 
+      label: 'מנות שהוכנו לפי קטגוריות',
       backgroundColor: 'rgba(54, 162, 235, 0.6)',
       borderColor: 'rgba(54, 162, 235, 1)',
       borderWidth: 2,
@@ -63,9 +80,11 @@ export class DashboardComponent implements OnInit {
       this.kmws.getCategories()
        .subscribe(
          categories => {
-           this.barChartLabels = categories.body.map(x => x.title),
-           err => this.barChartLabels = []
-       });
+             this.barChartLabels = categories.body.map(x => x.title);
+             this.categories = categories.body;
+          },
+          err => this.barChartLabels = []
+       );
   }
 
   ngOnInit() {
@@ -95,9 +114,14 @@ export class DashboardComponent implements OnInit {
               .length;
           }
 
+          this.setChartData(data.body as Array<any>);
+
           if(this.selectedCook === 0){
             (data.body as Array<any>)
-            .forEach(dish => this.sumProductCost += dish.cost);  
+            .forEach(dish => {
+              this.sumProductCost = parseFloat(dish.cost.toFixed(2)) + parseFloat(this.sumProductCost.toFixed(2));
+              console.log(this.sumProductCost, dish.cost);
+            });  
           }else{
             (data.body as Array<any>)
               .filter(dish => dish.userId === this.selectedCook)
@@ -108,5 +132,16 @@ export class DashboardComponent implements OnInit {
           this.sumDishCooked = 0;
           this.sumProductCost = 0;
         });
+  }
+
+  setChartData(dishes: Array<any>){
+    if(!dishes){
+      return;
+    }
+
+    this.barChartData[0].data = [];
+    this.categories.forEach(category => {
+      this.barChartData[0].data.push(dishes.filter(dish => dish.categoryId === category.id).length);    
+    });
   }
 }

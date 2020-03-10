@@ -105,3 +105,8 @@
     text-align: center;
     width: 100px;
 }
+
+.chart-wrapper{
+    width: 50%;
+    margin: 50px auto;
+}
