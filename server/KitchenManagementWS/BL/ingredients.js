@@ -26,7 +26,8 @@ module.exports.getById = (id) => {
                     let quantity = 0;
                     stockBl.getByIngredient(id)
                         .then(stock => {
-                            quantity = (stock.length === 0) ? 0 : ((stock.length === 1) ? stock[0].quantity : stock.reduce((x, y) => x.quantity + y.quantity));
+                            quantity = (stock.length === 0) ? 0 : ((stock.length === 1) ? stock[0].quantity : stock.reduce((total, elm) => total + elm.quantity, 0));
+                            console.log(id, quantity);
                         })
                         .catch(err => {
                             if(err.code != 204){
