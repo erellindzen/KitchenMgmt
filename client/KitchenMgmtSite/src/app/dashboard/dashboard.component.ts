@@ -30,15 +30,20 @@ export class DashboardComponent implements OnInit {
     },
     scales: {
       xAxes: [{
-        display: false,
+        display: true,
         ticks: {
-          min: 0
+          min: 0,
+          fontColor: "#fff",
+          fontSize: 20
         }
       }],
       yAxes: [{
-        display: false,
+        display: true,
         ticks: {
-          min: 0
+          min: 0,
+          fontColor: "#fff",
+          fontSize: 20,
+          stepSize: 5
         }
       }],
     }
@@ -48,17 +53,18 @@ export class DashboardComponent implements OnInit {
   barChartLegend = true;
   barChartPlugins = [];
 
-  barChartData: ChartDataSets[] = [
+  barChartData: ChartDataSets[] = null;
+  private barChartDataRef: ChartDataSets[] = [
     { 
-      barPercentage: 0.8,
-      categoryPercentage: 0.9,
-      data: [], 
+      barPercentage: 0.6,
+      categoryPercentage: 1,
+      data: null, 
       label: 'מנות שהוכנו לפי קטגוריות',
-      backgroundColor: 'rgba(54, 162, 235, 0.6)',
-      borderColor: 'rgba(54, 162, 235, 1)',
+      backgroundColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0, 255, 0, 0.5)', 'rgba(0, 0, 255, 0.5)', 'rgba(255, 255, 0, 0.5)', 'rgba(128, 0, 128, 0.5)', 'rgba(0, 128, 128, 0.5)'],
+      borderColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0, 255, 0, 0.5)', 'rgba(0, 0, 255, 0.5)', 'rgba(255, 255, 0, 0.5)', 'rgba(128, 0, 128, 0.5)', 'rgba(0, 128, 128, 0.5)'],
       borderWidth: 2,
-      hoverBackgroundColor: 'rgba(54, 162, 235, 1)',
-      hoverBorderColor: 'rgba(54, 162, 235, 1)',
+      hoverBackgroundColor: ['rgba(255, 0, 0, 1)', 'rgba(0, 255, 0, 1)', 'rgba(0, 0, 255, 1)', 'rgba(255, 255, 0, 1)', 'rgba(128, 0, 128, 1)', 'rgba(0, 128, 128, 1)'],
+      hoverBorderColor: ['rgba(255, 0, 0, 1)', 'rgba(0, 255, 0, 1)', 'rgba(0, 0, 255, 1)', 'rgba(255, 255, 0, 1)', 'rgba(128, 0, 128, 1)', 'rgba(0, 128, 128, 1)'],
       hoverBorderWidth: 2,
       barThickness: 'flex'
     }
@@ -100,11 +106,13 @@ export class DashboardComponent implements OnInit {
       this.formError = true;
     }
 
+    this.barChartData = null;
+
     this.kmws.getMyCookedDishesByDate(this.fromDate, this.toDate)
       .subscribe(
         data => {
           this.sumDishCooked = 0;
-          this.sumProductCost = 0;
+          this.sumProductCost = 0
 
           if(this.selectedCook === 0){
             this.sumDishCooked = (data.body as Array<any>).length;
@@ -114,14 +122,14 @@ export class DashboardComponent implements OnInit {
               .length;
           }
 
-          this.setChartData(data.body as Array<any>);
+          if(this.selectedCook === 0){
+            this.setChartData(data.body as Array<any>);
+          }else{
+            this.setChartData((data.body as Array<any>).filter(dish => dish.userId === this.selectedCook));
+          }
 
           if(this.selectedCook === 0){
-            (data.body as Array<any>)
-            .forEach(dish => {
-              this.sumProductCost = parseFloat(dish.cost.toFixed(2)) + parseFloat(this.sumProductCost.toFixed(2));
-              console.log(this.sumProductCost, dish.cost);
-            });  
+            (data.body as Array<any>).forEach(dish => this.sumProductCost = parseFloat(dish.cost.toFixed(2)) + parseFloat(this.sumProductCost.toFixed(2)));  
           }else{
             (data.body as Array<any>)
               .filter(dish => dish.userId === this.selectedCook)
@@ -139,9 +147,11 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
-    this.barChartData[0].data = [];
+    this.barChartDataRef[0].data = [];
     this.categories.forEach(category => {
-      this.barChartData[0].data.push(dishes.filter(dish => dish.categoryId === category.id).length);    
+      this.barChartDataRef[0].data.push(dishes.filter(dish => dish.categoryId === category.id).length);    
     });
+    
+    this.barChartData = this.barChartDataRef;
   }
 }

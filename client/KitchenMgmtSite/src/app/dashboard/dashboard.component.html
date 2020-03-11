@@ -26,7 +26,7 @@
                 <label for="sumProductCost">סה"כ עלויות ייצור:</label>
                 <input class="resultInput" type="text" id="sumProductCost" readonly [value]="sumProductCost">
             </div>
-            <div class="chart-wrapper">
+            <div class="chart-wrapper" *ngIf="barChartData">
                 <canvas baseChart 
                     [datasets]="barChartData"
                     [labels]="barChartLabels"
