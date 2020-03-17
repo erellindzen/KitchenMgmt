@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { KmwsService } from '../kmws.service';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import { Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,58 +15,10 @@ export class DashboardComponent implements OnInit {
   private cooks = [];
   private selectedCook = -1;
   private categories = [];
-  
-  barChartOptions: ChartOptions = {
-    responsive: true,
-    legend: {
-      display: false,
-      labels: {
-         fontColor: 'white',
-         fontFamily: "`David Libre`, `serif`",
-         fontSize: 20
-      }
-    },
-    scales: {
-      xAxes: [{
-        display: true,
-        ticks: {
-          min: 0,
-          fontColor: "#fff",
-          fontSize: 20
-        }
-      }],
-      yAxes: [{
-        display: true,
-        ticks: {
-          min: 0,
-          fontColor: "#fff",
-          fontSize: 20,
-          stepSize: 5
-        }
-      }],
-    }
-  };
-  barChartLabels = [];
-  barChartType: ChartType = 'bar';
-  barChartLegend = true;
-  barChartPlugins = [];
-
-  barChartData: ChartDataSets[] = null;
-  private barChartDataRef: ChartDataSets[] = [
-    { 
-      barPercentage: 0.6,
-      categoryPercentage: 1,
-      data: null, 
-      label: 'מנות שהוכנו לפי קטגוריות',
-      backgroundColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0, 255, 0, 0.5)', 'rgba(0, 0, 255, 0.5)', 'rgba(255, 255, 0, 0.5)', 'rgba(128, 0, 128, 0.5)', 'rgba(0, 128, 128, 0.5)'],
-      borderColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0, 255, 0, 0.5)', 'rgba(0, 0, 255, 0.5)', 'rgba(255, 255, 0, 0.5)', 'rgba(128, 0, 128, 0.5)', 'rgba(0, 128, 128, 0.5)'],
-      borderWidth: 2,
-      hoverBackgroundColor: ['rgba(255, 0, 0, 1)', 'rgba(0, 255, 0, 1)', 'rgba(0, 0, 255, 1)', 'rgba(255, 255, 0, 1)', 'rgba(128, 0, 128, 1)', 'rgba(0, 128, 128, 1)'],
-      hoverBorderColor: ['rgba(255, 0, 0, 1)', 'rgba(0, 255, 0, 1)', 'rgba(0, 0, 255, 1)', 'rgba(255, 255, 0, 1)', 'rgba(128, 0, 128, 1)', 'rgba(0, 128, 128, 1)'],
-      hoverBorderWidth: 2,
-      barThickness: 'flex'
-    }
-  ];
+  categoryChartLabels: Array<string> = [];
+  categoryData: Array<number> = [];
+  dishByCategory: any = [];
+  private mainChartTitle = 'חלוקה לפי קטגוריות';
 
   constructor(private kmws: KmwsService) {
     this.kmws.getCookNames()
@@ -86,10 +36,10 @@ export class DashboardComponent implements OnInit {
       this.kmws.getCategories()
        .subscribe(
          categories => {
-             this.barChartLabels = categories.body.map(x => x.title);
+             this.categoryChartLabels = categories.body.map(x => x.title);
              this.categories = categories.body;
           },
-          err => this.barChartLabels = []
+          err => this.categoryChartLabels = []
        );
   }
 
@@ -105,8 +55,6 @@ export class DashboardComponent implements OnInit {
     if(this.fromDate > this.toDate){
       this.formError = true;
     }
-
-    this.barChartData = null;
 
     this.kmws.getMyCookedDishesByDate(this.fromDate, this.toDate)
       .subscribe(
@@ -147,11 +95,34 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
-    this.barChartDataRef[0].data = [];
+    this.categoryData= [];
     this.categories.forEach(category => {
-      this.barChartDataRef[0].data.push(dishes.filter(dish => dish.categoryId === category.id).length);    
+      this.categoryData.push(dishes.filter(dish => dish.categoryId === category.id).length);    
+      
+      let catDishes = dishes.filter(dish => dish.categoryId === category.id);
+      let labels = [];
+      let data = [];
+      //let grouped = this.groupBy(catDishes, dish=>dish.dishTitle)
+      //console.log(grouped.forEach(x => console.log(x[0].dishTitle, x.length)));
+      this.groupBy(catDishes, dish=>dish.dishTitle).forEach(catDish => {
+        labels.push(catDish[0].dishTitle);
+        data.push(catDish.length);
+      });
+      this.dishByCategory.push({labels: labels, data: data});
     });
-    
-    this.barChartData = this.barChartDataRef;
+  }
+
+  groupBy(list, keyGetter) {
+    const map = new Map();
+    list.forEach((item) => {
+         const key = keyGetter(item);
+         const collection = map.get(key);
+         if (!collection) {
+             map.set(key, [item]);
+         } else {
+             collection.push(item);
+         }
+    });
+    return map;
   }
 }

@@ -26,15 +26,17 @@
                 <label for="sumProductCost">סה"כ עלויות ייצור:</label>
                 <input class="resultInput" type="text" id="sumProductCost" readonly [value]="sumProductCost">
             </div>
-            <div class="chart-wrapper" *ngIf="barChartData">
-                <canvas baseChart 
-                    [datasets]="barChartData"
-                    [labels]="barChartLabels"
-                    [options]="barChartOptions"
-                    [plugins]="barChartPlugins"
-                    [legend]="barChartLegend"
-                    [chartType]="barChartType">
-              </canvas>
+            <div class="CategoryChart">
+                <app-bar-chart 
+                    [chartLabels]="categoryChartLabels" 
+                    [chartData]="categoryData"
+                    [title]="mainChartTitle">
+                </app-bar-chart>
+                <app-bar-chart *ngFor="let d2c of dishByCategory; let i=index" 
+                    [chartLabels]="d2c.labels" 
+                    [chartData]="d2c.data"
+                    [title]="categoryChartLabels[i]">
+                </app-bar-chart>
             </div>
         </div>
     </div>

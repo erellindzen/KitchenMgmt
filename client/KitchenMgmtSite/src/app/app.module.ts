@@ -26,6 +26,7 @@ import { MyDishesComponent } from './my-dishes/my-dishes.component';
 import { DishComponent } from './dish/dish.component';
 import { SelectDishComponent } from './select-dish/select-dish.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MyDishesComponent,
     DishComponent,
     SelectDishComponent,
-    DashboardComponent
+    DashboardComponent,
+    BarChartComponent
   ],
   imports: [
     BrowserModule,

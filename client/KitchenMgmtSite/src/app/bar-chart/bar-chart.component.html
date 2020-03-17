@@ -1,0 +1,11 @@
+<h3 class="chartTitle">{{ title }}</h3>
+<div class="chart-wrapper">
+    <canvas baseChart 
+        [datasets]="barChartData"
+        [labels]="chartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType">
+    </canvas>
+</div>
