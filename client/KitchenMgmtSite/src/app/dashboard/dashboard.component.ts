@@ -125,4 +125,12 @@ export class DashboardComponent implements OnInit {
     });
     return map;
   }
+
+  isShowChart(): boolean{
+    if(this.dishByCategory.length > 0){
+      return true;
+    }
+      
+    return false;
+  }
 }
