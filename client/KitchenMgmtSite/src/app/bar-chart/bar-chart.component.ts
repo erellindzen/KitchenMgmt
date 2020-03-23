@@ -49,6 +49,7 @@ export class BarChartComponent implements OnInit, OnChanges {
   private barChartData: ChartDataSets[] = [
     { 
       barPercentage: 0.6,
+      maxBarThickness: 90,
       categoryPercentage: 1,
       data: null, 
       label: 'מנות שהוכנו לפי קטגוריות',

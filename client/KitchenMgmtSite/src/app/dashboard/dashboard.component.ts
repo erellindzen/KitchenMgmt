@@ -102,8 +102,7 @@ export class DashboardComponent implements OnInit {
       let catDishes = dishes.filter(dish => dish.categoryId === category.id);
       let labels = [];
       let data = [];
-      //let grouped = this.groupBy(catDishes, dish=>dish.dishTitle)
-      //console.log(grouped.forEach(x => console.log(x[0].dishTitle, x.length)));
+      
       this.groupBy(catDishes, dish=>dish.dishTitle).forEach(catDish => {
         labels.push(catDish[0].dishTitle);
         data.push(catDish.length);
