@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { KmwsService } from '../kmws.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-dashboard',
@@ -77,12 +78,14 @@ export class DashboardComponent implements OnInit {
           }
 
           if(this.selectedCook === 0){
-            (data.body as Array<any>).forEach(dish => this.sumProductCost = parseFloat(dish.cost.toFixed(2)) + parseFloat(this.sumProductCost.toFixed(2)));  
+            (data.body as Array<any>).forEach(dish => this.sumProductCost = (parseFloat(dish.cost.toFixed(2)) + parseFloat(this.sumProductCost.toFixed(2))));  
           }else{
             (data.body as Array<any>)
               .filter(dish => dish.userId === this.selectedCook)
               .forEach(dish => this.sumProductCost += dish.cost);
           }
+
+          this.sumProductCost = parseFloat(this.sumProductCost.toFixed(2));
         },
         err => {
           this.sumDishCooked = 0;
