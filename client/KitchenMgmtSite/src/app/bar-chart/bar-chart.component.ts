@@ -25,6 +25,11 @@ export class BarChartComponent implements OnInit, OnChanges {
     scales: {
       xAxes: [{
         display: true,
+        gridLines: {
+          lineWidth: 0.8,
+          color: "#000",
+          drawBorder: false,
+        },
         ticks: {
           min: 0,
           fontColor: "#fff",
@@ -33,11 +38,16 @@ export class BarChartComponent implements OnInit, OnChanges {
       }],
       yAxes: [{
         display: true,
+        gridLines: {
+          lineWidth: 0.8,
+          color: "#000",
+          drawBorder: false,
+        },
         ticks: {
           min: 0,
           fontColor: "#fff",
           fontSize: 20,
-          stepSize: 1
+          stepSize: 10
         }
       }],
     }
