@@ -53,7 +53,7 @@ module.exports.getNotReadyByUser = (userName) => {
                             if(data.length === 0){
                                 reject(new KMError(204, `List is empty.`));
                             }else{
-                                resolve(data.filter(dish => dish.cookedDate === null));
+                                resolve(data);
                             }
                         })
                         .catch(err => reject(new KMError(500, err)));
@@ -105,7 +105,6 @@ module.exports.create = (dishId, userId) => {
 };
 
 module.exports.setCookedDate = (id) => {
-    console.log(id);
     return new Promise((resolve, reject) => {
         if(!id){
             reject(new KMError(400, "Missed parameters."));
