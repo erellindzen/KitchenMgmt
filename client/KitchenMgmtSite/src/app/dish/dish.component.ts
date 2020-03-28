@@ -14,6 +14,15 @@ export class DishComponent implements OnInit {
   @Input()
   dish: Dish;
 
+  @Input()
+  isCooked: boolean;
+
+  @Input()
+  cookedRequested: Date;
+
+  @Input()
+  cookedDone: Date;
+
   @Output()
   dishServed = new EventEmitter<number>();
 

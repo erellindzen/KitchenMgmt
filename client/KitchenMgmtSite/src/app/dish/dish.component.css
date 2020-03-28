@@ -1,3 +1,12 @@
+#dishDates{
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    justify-content: flex-start;
+    justify-content: space-between;
+    margin-bottom: 2em;
+}
+
 .detailedDish{
     padding: 30px 40px;
 }

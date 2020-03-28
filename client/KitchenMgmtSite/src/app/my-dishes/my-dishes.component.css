@@ -37,6 +37,10 @@
     margin-bottom: 60px;
 }
 
+.cookedDoneImage{
+    height: 40px;
+}
+
 .card-header{
     display: flex;
     flex-flow: row;

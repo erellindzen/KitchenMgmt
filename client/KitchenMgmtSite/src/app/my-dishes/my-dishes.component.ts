@@ -29,8 +29,17 @@ export class MyDishesComponent implements OnInit {
             let resArray = data.body as Array<MyDish>;
             this.myDishes = [];
             resArray.forEach(myDish => this.myDishes.push(myDish));
-            resArray = resArray.sort((a, b) => a.cookedDate > b.cookedDate ? -1 : 1);
-            console.log(resArray);
+            this.myDishes.sort((a, b) => {
+              if(a.cookedDate === null && b.cookedDate === null){
+                return (a.established > b.established) ? -1 : 1;
+              }else if(a.cookedDate === null){
+                return -1;
+              }else if(b.cookedDate === null){
+                return 1;
+              }else{
+                a.cookedDate > b.cookedDate ? -1 : 1;
+              }
+            });
           }
         },
         error => this.myDishes = []
@@ -69,7 +78,6 @@ export class MyDishesComponent implements OnInit {
             this.currentDish.preperationSteps = [];
             data.body['preperationSteps'].forEach(s => this.currentDish.preperationSteps.push(s));
             this.currentDish.title = data.body['title'];
-           // this.currentDish.isCooked = data.body['']
           }
         },
         error => this.currentDish = new Dish(0, '', [], 0, [], 0, '', 0)
