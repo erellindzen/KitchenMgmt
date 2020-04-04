@@ -121,6 +121,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "KitchenMgmtSite"
+    }
+  },
+  "defaultProject": "KitchenMgmtSite",
+  "cli": {
+    "analytics": "f37f6577-4718-4214-a62e-30ee870cba5c"
+  }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
+import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'app-bar-chart',
@@ -14,6 +15,9 @@ export class BarChartComponent implements OnInit, OnChanges {
 
   barChartOptions: ChartOptions = {
     responsive: true,
+    plugins: {
+      pluginDataLabels
+    },
     legend: {
       display: false,
       labels: {
@@ -69,7 +73,17 @@ export class BarChartComponent implements OnInit, OnChanges {
       hoverBackgroundColor: ['rgba(255, 0, 0, 1)', 'rgba(0, 255, 0, 1)', 'rgba(0, 0, 255, 1)', 'rgba(255, 255, 0, 1)', 'rgba(128, 0, 128, 1)', 'rgba(0, 128, 128, 1)'],
       hoverBorderColor: ['rgba(255, 0, 0, 1)', 'rgba(0, 255, 0, 1)', 'rgba(0, 0, 255, 1)', 'rgba(255, 255, 0, 1)', 'rgba(128, 0, 128, 1)', 'rgba(0, 128, 128, 1)'],
       hoverBorderWidth: 2,
-      barThickness: 'flex'
+      barThickness: 'flex',
+      datalabels:{
+        anchor: 'end',
+        align: 'top',
+        color: '#fff',
+        clamp: true,
+        font:{
+          size: 14,
+          weight: 'bold'
+        }
+      }
     }
   ];
   constructor() { }
