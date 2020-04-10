@@ -20,9 +20,6 @@ export class DishComponent implements OnInit {
   @Input()
   cookedRequested: Date;
 
-  @Input()
-  cookedDone: Date;
-
   @Output()
   dishServed = new EventEmitter<number>();
 

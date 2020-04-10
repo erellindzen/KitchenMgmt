@@ -1,7 +1,6 @@
 <div class="detailedDish">
     <div id="dishDates">
         <strong id="requestedDate">תאריך הבקשה: {{ cookedRequested | date: 'hh:mm dd/MM/yyyy' }}</strong>
-        <strong id="cookedDate" *ngIf="cookedDone != null">תאריך ההכנה: {{ cookedDone | date: 'hh:mm dd/MM/yyyy' }}</strong>
     </div>
     <p id="duration">זמן הכנה: {{ dish.duration }} דקות</p>
     <p id="numOfDines">הארוחה מיועדת ל-{{ dish.numberOfDines }} סועדים</p>
@@ -30,6 +29,6 @@
             <li class="step" *ngFor="let step of dish.preperationSteps">{{ step }}</li>
         </ul>
     </div>   
-    <button id="submitBtn" class="btn btn-primary" (click)="finishCook()" *ngIf="isCooked">סיימתי לבשל</button> 
+    <button id="submitBtn" class="btn btn-primary" (click)="finishCook()" *ngIf="!isCooked">סיימתי לבשל</button> 
     <small class="error-message" *ngIf="finishCookError">הייתה שגיאה בביצוע הפעולה</small>
 </div>

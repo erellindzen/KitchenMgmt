@@ -7,7 +7,6 @@ router.get('/', (req, res) => {
   userBl.getCooks()
     .then(data => res.send(data))
     .catch(err => {
-      console.log(err.msg);
       res.sendStatus(err.code);
     });
 });

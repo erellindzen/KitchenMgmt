@@ -37,15 +37,15 @@
     margin-bottom: 60px;
 }
 
-.cookedDoneImage{
-    height: 40px;
-}
-
 .card-header{
     display: flex;
     flex-flow: row;
     justify-content: space-between;
     padding: 16px;
+}
+
+.dist-title{
+    width: 15%;
 }
 
 .message{

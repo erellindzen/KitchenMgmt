@@ -7,7 +7,6 @@ router.get('/', (req, res) => {
   cookedDishBl.getAll()
         .then(data => res.send(data))
         .catch(err => {
-            console.log(err.msg);
             res.sendStatus(err.code);
         });
 });
@@ -16,7 +15,6 @@ router.get('/from/:fromDate/to/:toDate', (req, res) => {
   cookedDishBl.getByDate(req.params.fromDate, req.params.toDate)
         .then(data => res.send(data))
         .catch(err => {
-            console.log(err.msg);
             res.sendStatus(err.code);
         });
 });
@@ -26,7 +24,6 @@ router.get('/notReady', (req, res) => {
   cookedDishBl.getNotReadyByUser(userObj.payload.username)
         .then(data => res.send(data))
         .catch(err => {
-            console.log(err.msg);
             res.sendStatus(err.code);
         });
 });
@@ -35,7 +32,6 @@ router.get('/:id', (req, res) => {
   cookedDishBl.getById(req.params.id)
       .then(data => res.send(data))
       .catch(err => {
-        console.log(err.msg);
         res.sendStatus(err.code);
       });
 });
@@ -44,7 +40,6 @@ router.post('/', (req, res) => {
   cookedDishBl.create(req.body.dishId, req.body.userId)
     .then(data => res.send(data))
     .catch(err => {
-      console.log(err);
       res.sendStatus(err.code);
   });
 });
@@ -53,7 +48,6 @@ router.put('/', (req, res) => {
   cookedDishBl.setCookedDate(req.body.id)
     .then(data => res.send(data))
     .catch(err => {
-      console.log(err.msg);
       res.sendStatus(err.code);
   });
 });

@@ -24,14 +24,12 @@ router.post('/login', (req, res) => {
                 userBl.updateRefreshToken(user.id, refreshToken)
                     .then(user => res.json({jwt: token, refreshToken: refreshToken}))
                     .catch(err => {
-                        console.log(err);
                         res.sendStatus(500);
                     })
                 
             }
         })
         .catch(err => {
-            console.log(err);
             res.sendStatus(500);
         });
 });
@@ -43,7 +41,6 @@ router.post('/register', (req, res) => {
         .then(user => res.sendStatus(400))
         .catch(err => {
             if(err.code != 204){
-                console.log(err);
                 res.sendStatus(err.code);
             }
             else{
@@ -58,7 +55,6 @@ router.post('/register', (req, res) => {
                 userBl.create(username, firstName, lastName, password, 'cook', refreshToken)
                     .then(user => res.json({jwt: token, refreshToken: refreshToken}))
                     .catch(err => {
-                        console.log(err);
                         res.sendStatus(500);
                     }); 
             }
@@ -75,7 +71,6 @@ router.post('/logout', (req, res) => {
             }
         })
         .catch(err => {
-            console.log(err);
             res.sendStatus(500);
         })
     res.sendStatus(204);
@@ -101,7 +96,6 @@ router.post('/refresh', (req, res) => {
             res.json({ jwt: token });
         })
         .catch(err => {
-            console.log(err);
             res.sendStatus(401);
         })
 });

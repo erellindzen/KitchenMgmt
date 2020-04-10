@@ -67,7 +67,6 @@ export class MyDishesComponent implements OnInit {
           if(data.status != 200){
             this.currentDish = new Dish(0, '', [], 0, [], 0, '', 0);
           }else{
-            console.log(data.body);
             this.currentDish.categoryId = data.body['categoryId'];
             this.currentDish.duration = data.body['duration'];
             this.currentDish.id = this.cardPressed;

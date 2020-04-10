@@ -27,7 +27,6 @@ module.exports.getById = (id) => {
                     stockBl.getByIngredient(id)
                         .then(stock => {
                             quantity = (stock.length === 0) ? 0 : ((stock.length === 1) ? stock[0].quantity : stock.reduce((total, elm) => total + elm.quantity, 0));
-                            console.log(id, quantity);
                         })
                         .catch(err => {
                             if(err.code != 204){
@@ -52,7 +51,6 @@ module.exports.getById = (id) => {
 };
 
 module.exports.create = (title, unitTitle, price, canExpired) => {
-    console.log(canExpired);
     return new Promise((resolve, reject) => {
         if(!title || !unitTitle || !price || canExpired === undefined || canExpired === null){
             reject(new KMError(400, "Missed parameters."));

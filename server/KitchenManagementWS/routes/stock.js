@@ -6,7 +6,6 @@ router.get('/', (req, res) => {
   stockBl.getAll()
         .then(data => res.send(data))
         .catch(err => {
-            console.log(err.msg);
             res.sendStatus(err.code);
         });
 });
@@ -15,7 +14,6 @@ router.get('/:id', (req, res) => {
   stockBl.getById(req.params.id)
       .then(data => res.send(data))
       .catch(err => {
-        console.log(err.msg);
         res.sendStatus(err.code);
       });
 });
@@ -24,7 +22,6 @@ router.get('/ingredient/:ingredientId', (req, res) => {
   stockBl.getByIngredient(req.params.ingredientId)
       .then(data => res.send(data))
       .catch(err => {
-        console.log(err.msg);
         res.sendStatus(err.code);
       });
 });
@@ -35,7 +32,6 @@ router.post('/', (req, res) => {
                  req.body.expirationDate)
     .then(data => res.send(data))
     .catch(err => {
-      console.log(err.msg);
       res.sendStatus(err.code);
   });
 });
@@ -47,7 +43,6 @@ router.put('/', (req, res) => {
                  req.body.expirationDate)
     .then(data => res.send(data))
     .catch(err => {
-      console.log(err.msg);
       res.sendStatus(err.code);
   });
 });
@@ -56,7 +51,6 @@ router.delete('/:id', (req, res) => {
   stockBl.delete(req.params.id)
     .then(data => res.send(data))
     .catch(err => {
-      console.log(err.msg);
       res.sendStatus(err.code);
   });
 });
