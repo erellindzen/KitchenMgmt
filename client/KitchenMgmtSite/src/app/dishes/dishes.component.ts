@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { KmwsService } from '../kmws.service';
-import { Category } from '../category';
+import { Category } from '../custom_models/category';
 import { HttpResponse } from '@angular/common/http';
+import { IngredientAlert } from '../custom_models/ingredients-alert';
 
 @Component({
   selector: 'app-dishes',
@@ -16,9 +17,15 @@ export class DishesComponent implements OnInit {
   private dishes = [];
   private imagePrefix = '../../assets/images/dishes/';
   private chosenDish = -1;
+  private isNotificationOn = false;
+  private currIngAlert: IngredientAlert;
 
-  constructor(private route: ActivatedRoute, private router: Router, private kmws: KmwsService) {
-    this.category = new Category(0, '', '');
+  constructor(private route: ActivatedRoute, 
+    private router: Router, 
+    private kmws: KmwsService,
+    ) {
+      this.category = new Category(0, '', '');
+      this.currIngAlert = new IngredientAlert([], []);
   }
 
   ngOnInit() {
@@ -72,5 +79,18 @@ export class DishesComponent implements OnInit {
 
   private onDishClick(id){
     this.chosenDish = (this.chosenDish === -1) ? id : ((this.chosenDish === id) ? -1 : id); 
+  }
+
+  onNotificationClose(){
+    this.isNotificationOn = false;
+    this.chosenDish = -1;
+    this.currIngAlert.emptyAmount = [];
+    this.currIngAlert.littleAmount = [];
+  }
+
+  onNotificationOpen(ingAlert: IngredientAlert){
+    this.currIngAlert.littleAmount = ingAlert.littleAmount;
+    this.currIngAlert.emptyAmount = ingAlert.emptyAmount;
+    this.isNotificationOn = true;
   }
 }

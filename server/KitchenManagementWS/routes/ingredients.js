@@ -3,11 +3,11 @@ const router = express.Router();
 const dishBl = require('../bl/ingredients');
 
 router.get('/', (req, res) => {
-  dishBl.getAll()
-        .then(data => res.send(data))
-        .catch(err => {
-            res.sendStatus(err.code);
-        });
+  dishBl.getIngredientsStatus()
+    .then(data => res.send(data))
+    .catch(err => {
+        res.sendStatus(err.code);
+    });
 });
 
 router.get('/:id', (req, res) => {
@@ -21,6 +21,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   dishBl.create(req.body.title, 
                 req.body.unitTitle, 
+                req.body.threshold,
                 req.body.price,  
                 req.body.canExpired)
     .then(data => res.send(data))
@@ -32,7 +33,8 @@ router.post('/', (req, res) => {
 router.put('/', (req, res) => {
   dishBl.update(req.body.id, 
                 req.body.title, 
-                req.body.unitTitle, 
+                req.body.unitTitle,
+                req.threshold, 
                 req.body.price,
                 req.body.canExpired)
     .then(data => res.send(data))

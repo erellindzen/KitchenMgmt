@@ -1,0 +1,43 @@
+<div class="ingredientsList" *ngIf="ingredients.length > 0">
+    <h3 *ngIf="ingredients.length > 0">{{ title }}</h3>
+    <div class="accordion" id="accordionStock" *ngIf="ingredients.length > 0">
+        <div class="card" *ngFor="let ingredient of ingredients">
+            <div class="card-header" [id]="ingredient.domCardId">
+                <h2 class="mb-0"> {{ ingredient.title }} </h2>
+                <button class="btn btn-link" type="button" (click)="onCardPressed(ingredient.id)" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" [attr.aria-controls]="ingredient.domCollapseId">
+                    {{ getHeaderButtonText(ingredient.id) }}
+                </button>
+            </div>
+        
+            <div [id]="ingredient.domCollapseId" class="collapse" [ngClass]="{ show : cardPressed==ingredient.id}" [attr.aria-labelledby]="ingredient.domCardId" data-parent="#accordionStockGood">
+                <div class="card-body">
+                    <div class="pannel">
+                        <img  class="addButtonImage small-btn" src="../../assets//images/add_button.png" title="הוסף משלוח" (click)="onAddShippingPressed(ingredient)">
+                    </div>
+                    <app-shipping-form *ngIf="addShippingPressed && shippingsId === ingredient.domShippingId" [ingredientId]="ingredient.id" [ingredientCanExpired]="ingredient.canExpired" (shippingAdded)="refreshShippingList(ingredient.id)" (shippingAdded)="refreshList()"></app-shipping-form>
+                    <div class="message" *ngIf="elementShippings.length === 0">
+                        <p>המוצר אזל</p>
+                    </div>
+                    <table class="table" *ngIf="elementShippings.length > 0">
+                        <thead>
+                        <tr>
+                            <th scope="col">מספר משלוח</th>
+                            <th scope="col">כמות ב{{ ingredient.unitTitle }}</th>
+                            <th scope="col">תאריך הגעה</th>
+                            <th scope="col" *ngIf="ingredient.canExpired">תאריך פג תוקף</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let shipping of elementShippings">
+                            <th scope="row">{{ shipping.id }}</th>
+                            <td>{{ shipping.quantity }}</td>
+                            <td>{{ shipping.arrivalDate }}</td>
+                            <td *ngIf="ingredient.canExpired">{{ shipping.expirationDate }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

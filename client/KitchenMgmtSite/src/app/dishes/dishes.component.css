@@ -99,3 +99,12 @@
 .hideElement{
     visibility: hidden;
 }
+
+.empty-amount, .little-amount{
+    margin-top: 15px;
+    text-align: right;
+}
+
+.empty-amount > ul, .little-amount > ul{
+    padding-right: 10%;
+}

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Dish } from './dish';
+import { Dish } from './custom_models/dish';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +20,8 @@ export class KmwsService {
     return this.http.get(`${this.URL}/category/${categoryId}`, {observe: 'response'});
   }
 
-  getIngredients(): Observable<any>{
-    return this.http.get(`${this.URL}/ingredient`, {observe: 'response'})
+  getIngredientsStatus(): Observable<any>{
+    return this.http.get(`${this.URL}/ingredient/`, {observe: 'response'})
   }
 
   getStockByIngredientId(ingredientId: number): Observable<any>{

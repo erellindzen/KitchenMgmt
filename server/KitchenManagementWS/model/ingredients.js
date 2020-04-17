@@ -6,6 +6,7 @@ const ingredientsSchema = new Schema(
         id: Number,
         title: String,
         unitTitle: String, 
+        threshold: Number,
         price: Number,
         canExpired: Boolean
     }

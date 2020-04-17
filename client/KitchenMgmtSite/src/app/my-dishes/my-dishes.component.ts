@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { KmwsService } from '../kmws.service';
-import { Dish } from '../dish';
-import { MyDish } from '../my-dish';
+import { Dish } from '../custom_models/dish';
+import { MyDish } from '../custom_models/my-dish';
 
 @Component({
   selector: 'app-my-dishes',

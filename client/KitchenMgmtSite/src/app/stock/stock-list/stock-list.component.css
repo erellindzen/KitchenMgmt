@@ -1,0 +1,40 @@
+.ingredientsList{
+    margin-top: 40px;
+}
+
+.ingredientsList > h3{
+    color: #ffffff;
+    font-size: 1.7em;
+    font-weight: 500;
+}
+
+#accordionStock{
+    margin-bottom: 60px;
+}
+
+.addButtonImage{
+    height:50px;
+    margin-bottom: 30px; 
+    margin-right: 20px;
+}
+
+.addButtonImage:hover{
+    cursor:pointer;
+}
+
+.card-header{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+.small-btn{
+    height: 40px;
+}
+
+.message{
+    font-size: 1.4em;
+    font-weight: 600;;
+    color: rgb(182, 12, 12);
+    margin: 50px;
+}

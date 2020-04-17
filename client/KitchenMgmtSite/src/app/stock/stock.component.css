@@ -31,18 +31,10 @@
     z-index: 1;
 }
 
-#accordionStock{
-    margin-bottom: 60px;
-}
-
 .addButtonImage{
     height:50px;
     margin-bottom: 30px; 
     margin-right: 20px;
-}
-
-.addButtonImage:hover{
-    cursor:pointer;
 }
 
 .message{
@@ -50,14 +42,4 @@
     font-weight: 600;;
     color: rgb(182, 12, 12);
     margin: 50px;
-}
-
-.card-header{
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-}
-
-.small-btn{
-    height: 40px;
 }

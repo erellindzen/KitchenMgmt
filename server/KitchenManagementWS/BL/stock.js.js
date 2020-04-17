@@ -67,7 +67,7 @@ module.exports.create = (ingredientId, quantity, expirationDate) => {
                     stockRepository.getMaxId()
                         .then(data => {
                             let id = (data.length === 0) ? 1 : data[0].id + 1;
-                            stockRepository.create(id, ingredientId, quantity, expirationDate, new Date())
+                            stockRepository.create(id, ingredientId, quantity, expirationDate ? expirationDate : null, new Date())
                                 .then(data => resolve(data))
                                 .catch(err => reject(new KMError(500, err)));
                     })

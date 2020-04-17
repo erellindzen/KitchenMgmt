@@ -1,0 +1,9 @@
+<div *ngIf="isShow">
+  <div class="mmodal">
+    <div class="mmodal-body">
+      <ng-content></ng-content>
+      <button class="btn btn-dark" (click)="close()">סגירה</button>
+    </div>
+  </div>
+  <div class="mmodal-background"></div>
+</div>

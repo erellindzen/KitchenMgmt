@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { KmwsService } from '../kmws.service';
+import { KmwsService } from '../../kmws.service';
+import { IngredientAlert } from 'src/app/custom_models/ingredients-alert';
 
 @Component({
   selector: 'app-dish-user-form',
@@ -15,7 +16,7 @@ export class DishUserFormComponent implements OnInit {
   dishId: number;
 
   @Output()
-  onAssociate = new EventEmitter<boolean>();
+  onAssociate = new EventEmitter<IngredientAlert>();
 
   constructor(private kmws: KmwsService) { }
 
@@ -34,14 +35,18 @@ export class DishUserFormComponent implements OnInit {
   }
 
   sendForm(valid: boolean){
-    this.isError = false;
+    this.isError = false;   
     if(!valid){
       return;
     }
 
     this.kmws.associateDishToCook(this.dishId, this.selectedCook)
       .subscribe(
-        data => this.onAssociate.emit(true),
+        data => {
+          const ingAlert = new IngredientAlert((data.body as Array<any>).filter(ing => ing.status === 1).map(ing => ing.ingredient.title), 
+                                               (data.body as Array<any>).filter(ing => ing.status === 0).map(ing => ing.ingredient.title));
+          this.onAssociate.emit(ingAlert);
+        },
         error => this.isError = true
       );
   }

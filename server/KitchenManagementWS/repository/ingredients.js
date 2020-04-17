@@ -56,16 +56,17 @@ module.exports.getMaxId = () => {
     });
 };
 
-module.exports.create = (id, title, unitTitle, price, canExpired) => {
+module.exports.create = (id, title, unitTitle, threshold, price, canExpired) => {
     return new Promise((resolve, reject) => {
         let newIngredients = new ingredientsSchema({
             id: id,
             title: title,
             unitTitle: unitTitle, 
+            threshold: threshold,
             price: price,
             canExpired: canExpired
         });
-        
+
         newIngredients.save()
             .then(data => resolve(data))
             .catch(err => {
@@ -75,7 +76,7 @@ module.exports.create = (id, title, unitTitle, price, canExpired) => {
     });
 };
 
-module.exports.update = (id, title, unitTitle, price, canExpired) => {
+module.exports.update = (id, title, unitTitle, threshold, price, canExpired) => {
     return new Promise((resolve, reject) => {
         const filter = { id: id };
         let objForUpdate = {}; 
@@ -84,6 +85,8 @@ module.exports.update = (id, title, unitTitle, price, canExpired) => {
             objForUpdate.title = title;
         if(unitTitle)
             objForUpdate.unitTitle = unitTitle;
+        if(threshold)
+            objForUpdate.threshold = threshold;
         if(price)
             objForUpdate.price = price;
         if(canExpired)

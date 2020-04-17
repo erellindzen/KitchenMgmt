@@ -7,7 +7,7 @@
                 <option *ngFor="let cook of cooks" [ngValue]="cook.id">{{ cook.firstName + ' ' + cook.lastName }}</option>
             </select>
          </div>
-                <button type="submit" class="btn btn-primary sendButton" [disabled]="selectedCook < 1">שלח</button>
+            <button type="submit" class="btn btn-primary sendButton" [disabled]="selectedCook < 1">שלח</button>
         </div>
      <small class="error-message" *ngIf="isError">נוצרה בעיה בשיוך המנה לטבח</small>
  </form>

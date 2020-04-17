@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { KmwsService } from '../kmws.service';
+import { Ingredient } from '../custom_models/ingredient';
 
 @Component({
   selector: 'app-stock',
@@ -7,12 +8,10 @@ import { KmwsService } from '../kmws.service';
   styleUrls: ['./stock.component.css']
 })
 export class StockComponent implements OnInit {
-  private ingredients = [];
-  private elementShippings = [];
-  private cardPressed = '';
+  private ingredients = [[], [], []];
   private addIngredientPressed = false;
   private addShippingPressed = false;
-  private shippingsId = '';
+  private listTitles = ['מלאי תקין', 'מלאי מועט', 'מלאי ריק'];
 
   constructor(private kmws: KmwsService) { }
 
@@ -21,69 +20,29 @@ export class StockComponent implements OnInit {
   }
 
   isEmpty(){
-    return this.ingredients.length === 0;
-  }
-
-  onCardPressed(cardId){
-    this.addShippingPressed = false;
-    this.elementShippings = [];
-    if(this.cardPressed === cardId){
-      this.cardPressed = '';
-    }
-    else{
-      this.cardPressed = cardId;
-    }
-    
-    this.loadShippings(cardId);
+    return this.ingredients[0].length === 0 && this.ingredients[1].length === 0 && this.ingredients[2].length === 0;
   }
 
   private loadIngredients(){
-    this.kmws.getIngredients()
+    this.kmws.getIngredientsStatus()
       .subscribe(
         data => {
           if(data.status != 200){
-            this.ingredients = [];
+            this.ingredients[0] = [];
+            this.ingredients[1] = [];
+            this.ingredients[2] = [];
           }
           else{
-            this.ingredients = data.body.sort().map(x => {
-              let newIngredient = {
-                id: x.id,
-                title: x.title,
-                unitTitle: x.unitTitle, 
-                price: x.price,
-                canExpired: x.canExpired,
-                domCardId: `card_${x.id}_id`,
-                domCollapseId: `collapse_${x.id}_id`,
-                domShippingId: `shipping_${x.id}_id`
-              };
-              return newIngredient;
-            });
+            this.setIngredients(data.body, 0, 2);
+            this.setIngredients(data.body, 1, 1);
+            this.setIngredients(data.body, 2, 0);
           }
         },
-        err => this.ingredients = []
-      );
-  }
-
-  private loadShippings(cardId){
-    this.kmws.getStockByIngredientId(cardId)
-      .subscribe(
-        data => {
-          if(data.status != 200){
-            this.elementShippings = [];
-          }
-          else{
-            this.elementShippings = data.body.map(x => {
-              let newShipping = {
-                id: x.id,
-                quantity: x.quantity,
-                arrivalDate: new Date(x.arrivalDate).toLocaleDateString('he-IS'),
-                expirationDate: new Date(x.expirationDate).toLocaleDateString('he-IS')
-              };
-              return newShipping;
-            });
-          }
-        },
-        err => this.elementShippings = []
+        err => {
+          this.ingredients[0] = [];
+          this.ingredients[1] = [];
+          this.ingredients[2] = [];
+        }
       );
   }
 
@@ -93,15 +52,22 @@ export class StockComponent implements OnInit {
     this.loadIngredients();
   }
 
-  private refreshShippingList(cardId){
-    this.addShippingPressed = false;
-    this.loadShippings(cardId);
-  }
-
-  private getHeaderButtonText(cardId){
-    if(this.cardPressed === cardId){
-      return 'לסגירה';
-    }
-    return 'לפרטים';
+  private setIngredients(data: any, ingredientsListNumber: number, status: number){
+    this.ingredients[ingredientsListNumber] = data
+      .sort((a, b) => a.ingredient.title < b.ingredient.title ? -1 : 1)
+      .filter(x => x.status === status)
+      .map(x => {
+        let newIngredient = {
+          id: x.ingredient.id,
+          title: x.ingredient.title,
+          unitTitle: x.unitTitle, 
+          price: x.ingredient.price,
+          canExpired: x.ingredient.canExpired,
+          domCardId: `card_${x.ingredient.id}_id`,
+          domCollapseId: `collapse_${x.ingredient.id}_id`,
+          domShippingId: `shipping_${x.ingredient.id}_id`
+        };
+        return newIngredient;
+    });
   }
 }

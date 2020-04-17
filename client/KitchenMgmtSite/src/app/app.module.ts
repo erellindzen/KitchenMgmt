@@ -21,12 +21,14 @@ import { IngredientFormComponent } from './ingredient-form/ingredient-form.compo
 import { ShippingFormComponent } from './shipping-form/shipping-form.component';
 import { DishFormComponent } from './dish-form/dish-form.component';
 import { DishesComponent } from './dishes/dishes.component';
-import { DishUserFormComponent } from './dish-user-form/dish-user-form.component';
+import { DishUserFormComponent } from './dishes/dish-user-form/dish-user-form.component';
 import { MyDishesComponent } from './my-dishes/my-dishes.component';
 import { DishComponent } from './dish/dish.component';
 import { SelectDishComponent } from './select-dish/select-dish.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { StockListComponent } from './stock/stock-list/stock-list.component';
+import { NotificationComponent } from './dishes/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
     DishComponent,
     SelectDishComponent,
     DashboardComponent,
-    BarChartComponent
+    BarChartComponent,
+    StockListComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,

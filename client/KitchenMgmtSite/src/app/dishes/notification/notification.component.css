@@ -1,0 +1,29 @@
+.mmodal {
+    z-index: 1000;
+    position: fixed;
+    top: 50px;
+    bottom: 0;
+    left: 30%;
+    width: 40%;
+}
+
+.mmodal-body {
+    background: rgb(157, 201, 207);
+    margin: 40px;
+    padding: 20px;
+}
+
+.mmodal-background {
+    z-index: 900;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(32, 30, 30);
+     opacity: 0.8;
+}
+
+.btn{
+    margin-top: 20px;
+}

@@ -7,7 +7,24 @@
                 <img [src]="getDishImage(dish.imageUrl)" class="dish-image">
                 <h5 class="dish-title">{{ dish.title }}</h5>
             </div>
-            <app-dish-user-form [ngClass]="{ hideElement : chosenDish != dish.id }"  [dishId]="dish.id" (onAssociate)="chosenDish = -1"></app-dish-user-form>
+            <app-dish-user-form [ngClass]="{ hideElement : chosenDish != dish.id }"  [dishId]="dish.id" (onAssociate)="onNotificationOpen($event)"></app-dish-user-form>
+            <app-notification [isShow]="isNotificationOn" (onClose)="onNotificationClose()">
+                <h4>הפעולה הצליחה</h4>
+                <div class="body">
+                    <div class="little-amount" *ngIf="currIngAlert.littleAmount.length > 0">
+                        <h5>רכיבים עם מלאי נמוך:</h5>
+                        <ul>
+                            <li *ngFor="let ing of currIngAlert.littleAmount">{{ ing }}</li>
+                        </ul>
+                    </div>
+                    <div class="empty-amount" *ngIf="currIngAlert.emptyAmount.length > 0">
+                        <h5>רכיבים חסרים במלאי:</h5>
+                        <ul>
+                            <li *ngFor="let ing of currIngAlert.emptyAmount">{{ ing }}</li>
+                        </ul>
+                    </div>
+                </div>
+             </app-notification>
         </div>
     </div>
 </div>

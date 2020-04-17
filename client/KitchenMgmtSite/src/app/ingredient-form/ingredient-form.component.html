@@ -9,6 +9,10 @@
             <input type="text" class="form-control" id="unitInput" placeholder="שם היחידות שבהם נמדד המצרך" required #unitTitle="ngModel" name="ingredient.unitTitle" [(ngModel)]="ingredient.unitTitle">
         </div>
         <div class="form-group">
+            <label for="threshold">כמות סף להתראה</label>
+            <input type="number" class="form-control" id="thresholdInput" placeholder="כמות היחידות במלאי שמחת להן תהיה התראה" required #unitTitle="ngModel" name="ingredient.threshold" [(ngModel)]="ingredient.threshold">
+        </div>
+        <div class="form-group">
             <label for="priceInput">מחיר</label>
             <input type="number" class="form-control" id="priceInput" placeholder="מחיר ליחידה בש''ח" required #price="ngModel" name="ingredient.price" [(ngModel)]="ingredient.price">
             <small *ngIf="this.ingredient.price && this.ingredient.price <= 0" class="form-text  text-danger">המחיר חייב להיות חיובי</small>

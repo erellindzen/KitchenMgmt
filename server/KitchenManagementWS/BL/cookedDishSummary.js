@@ -79,29 +79,34 @@ module.exports.getById = (id) => {
     });
 };
 
-module.exports.create = (dishId, userId) => {
-    return new Promise((resolve, reject) => {
-        if(!dishId || !userId){
-            reject(new KMError(400, "Missed parameters."));
-        }
+module.exports.create = async (dishId, userId) => {
+    let result = [];
+    
+    if(!dishId || !userId){
+        throw new KMError(400, "Missed parameters.");
+    }
 
-        dishBl.getById(dishId)
-            .then(dish => {
-                userBl.getById(userId)
-                    .then(user => {
-                        cdsRepository.getMaxId()
-                            .then(data => {    
-                                let id = (data.length === 0) ? 1 : data[0].id + 1;
-                                cdsRepository.create(id, dishId, dish.title, dish.categoryId, new Date(), null, user.id, `${user.firstName} ${user.lastName}`, 0)
-                                    .then(data => resolve(data))
-                                    .catch(err => reject(new KMError(500, err)));
-                            })
-                            .catch(err => reject(new KMError(500, err)));
-                    })
-                    .catch(err => reject(err));
+    try {
+        const dishToAdd = await dishBl.getById(dishId);
+        const userToAdd = await userBl.getById(userId);
+        const maxIdData = await cdsRepository.getMaxId();
+        const maxId = (maxIdData.length === 0) ? 1 : maxIdData[0].id + 1;
+        const ingredientsStatus = await ingredientsBl.getIngredientsStatus();
+        result = ingredientsStatus.filter(ing => {
+            let res = false;
+            dishToAdd.ingerdients.forEach(dishIng => {
+                if(dishIng.id === ing.ingredient.id){
+                    res = true;
+                }
             })
-            .catch(err => reject(err));
-    });
+            return res;
+        });
+        await cdsRepository.create(maxId, dishId, dishToAdd.title, dishToAdd.categoryId, new Date(), null, userToAdd.id, `${userToAdd.firstName} ${userToAdd.lastName}`, 0);
+    } catch (error) {
+        throw KMError.getKMError(error);
+    }
+
+    return result;
 };
 
 module.exports.setCookedDate = (id) => {

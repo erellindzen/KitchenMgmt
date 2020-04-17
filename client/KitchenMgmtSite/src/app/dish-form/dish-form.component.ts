@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { KmwsService } from '../kmws.service';
 import { NgForm } from '@angular/forms';
-import { Dish } from '../dish';
+import { Dish } from '../custom_models/dish';
 
 
 @Component({
@@ -28,6 +28,7 @@ export class DishFormComponent implements OnInit {
   private sumPrice = `0 ש"ח`;
   private selectedId = 0;
   private isUserUpdated = false;
+  private currentDishTitle = 'מנה חדשה';
 
   constructor(private kmws: KmwsService) { }
 
@@ -44,7 +45,7 @@ export class DishFormComponent implements OnInit {
   }
 
   getIngredients() {
-    this.kmws.getIngredients()
+    this.kmws.getIngredientsStatus()
       .subscribe(
         data => {
           if(data.status != 200){
@@ -53,10 +54,10 @@ export class DishFormComponent implements OnInit {
           else{
             this.ingredients = data.body.sort().map(x => {
               let newIngredient = {
-                id: x.id,
-                title: x.title,
-                unitTitle: x.unitTitle,
-                price: x.price
+                id: x.ingredient.id,
+                title: x.ingredient.title,
+                unitTitle: x.ingredient.unitTitle,
+                price: x.ingredient.price
               };
               return newIngredient;
             });
@@ -173,6 +174,7 @@ export class DishFormComponent implements OnInit {
     this.dish.numberOfDines = (dish.numberOfDines === 0) ? '' : dish.numberOfDines.toString();
     this.dish.preperationSteps = dish.preperationSteps;
     this.dish.title = dish.title;
+    this.currentDishTitle = dish.title;
     this.calculateSumPrice();
   }
 

@@ -11,6 +11,7 @@ export class IngredientFormComponent implements OnInit {
   private ingredient = {
     title: '',
     unitTitle: '',
+    threshold: undefined,
     price: undefined,
     canExpired: false
   };

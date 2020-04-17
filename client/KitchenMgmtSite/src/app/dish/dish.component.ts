@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Dish } from '../dish';
+import { Dish } from '../custom_models/dish';
 import { KmwsService } from '../kmws.service';
 
 @Component({
