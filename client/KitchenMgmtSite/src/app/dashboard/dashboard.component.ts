@@ -99,6 +99,7 @@ export class DashboardComponent implements OnInit {
     }
 
     this.categoryData= [];
+    this.dishByCategory = [];
     this.categories.forEach(category => {
       this.categoryData.push(dishes.filter(dish => dish.categoryId === category.id).length);    
       
@@ -112,6 +113,7 @@ export class DashboardComponent implements OnInit {
       });
       this.dishByCategory.push({labels: labels, data: data});
     });
+
   }
 
   groupBy(list, keyGetter) {

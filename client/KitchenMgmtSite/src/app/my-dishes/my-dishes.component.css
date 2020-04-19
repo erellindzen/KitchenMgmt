@@ -37,6 +37,21 @@
     margin-bottom: 60px;
 }
 
+.selectDiv{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+}
+
+.cook-select{
+    width: max-content;
+}
+
+.cookNameTitle{
+    color: #fff;
+    margin-bottom: 20px;
+}
+
 .card-header{
     display: flex;
     flex-flow: row;

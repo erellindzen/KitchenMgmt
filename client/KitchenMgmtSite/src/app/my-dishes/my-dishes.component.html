@@ -1,5 +1,19 @@
 <div class="bg">
     <div class="container">
+        <div class="selectDiv">
+            <select *ngIf="cooks.length > 1" 
+                    class="form-control cook-select"
+                    [ngModel]="selectedCook" 
+                    name="selectedCook" 
+                    (change)="loadDishesByCook()"
+                    >
+                <option *ngFor="let cook of cooks; let i = index"
+                        [ngValue]="cook"
+                        >{{ cook }}
+                        </option>
+            </select>
+        </div>
+        <h2 class="cookNameTitle" *ngIf="!isEmpty()">המנות של {{ myDishes[0].userFullName }}</h2>
         <div class="accordion" id="accordionStock" *ngIf="!isEmpty()">
             <div class="card" *ngFor="let dish of myDishes">
                 <div class="card-header" [id]="dish.id">
@@ -20,7 +34,7 @@
                 </div>
             </div>
         </div>
-        <div class="message" *ngIf="isEmpty()">
+        <div class="message" *ngIf="allDishes.length === 0">
             <p>אין כרגע מנות להכנה עבורך</p>
         </div>
     </div>

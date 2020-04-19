@@ -43,6 +43,34 @@ module.exports.getByDate = (from, to) => {
     });
 };
 
+module.exports.getNotReadyByUser = async (userName) => {
+    let user;
+    let dishes;
+    
+    try {
+        user = await userBl.getByUsername(userName);
+    } catch (error) {
+        throw KMError.getKMError(error);
+    }
+
+    try {
+        if(user.role === 'admin'){
+            dishes = await cdsRepository.getAll();
+        }else{
+            dishes = await cdsRepository.getByUserId(user.id);
+        }
+        if(!dishes || dishes.length === 0){
+            throw new KMError(204, `List is empty.`);
+        }
+
+    } catch (error) {
+        throw KMError.getKMError(error);
+    }
+
+    return dishes;
+}
+
+/*
 module.exports.getNotReadyByUser = (userName) => {
     return new Promise((resolve, reject) => {
         userBl.getByUsername(userName)
@@ -63,7 +91,7 @@ module.exports.getNotReadyByUser = (userName) => {
             })
             .catch(err => reject(err));
     });
-};
+};*/
 
 module.exports.getById = (id) => {
     return new Promise((resolve, reject) => {

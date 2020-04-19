@@ -10,6 +10,9 @@ import { MyDish } from '../custom_models/my-dish';
 })
 export class MyDishesComponent implements OnInit {
   myDishes: Array<MyDish> = [];
+  allDishes: Array<MyDish> = [];
+  cooks = [];
+  selectedCook = 'בחר';
   cardPressed = -1;
   currentDish: Dish = new Dish(0, '', [], 0, [], 0, '', 0);
 
@@ -17,6 +20,7 @@ export class MyDishesComponent implements OnInit {
 
   ngOnInit() {
     this.loadMyDishes();
+    this.loadCooks();
   }
 
   private loadMyDishes(){
@@ -25,11 +29,13 @@ export class MyDishesComponent implements OnInit {
         data => {
           if(data.status != 200){
             this.myDishes = [];
+            this.allDishes = [];
           }else{
             let resArray = data.body as Array<MyDish>;
             this.myDishes = [];
-            resArray.forEach(myDish => this.myDishes.push(myDish));
-            this.myDishes.sort((a, b) => {
+            this.allDishes = [];
+            resArray.forEach(myDish => this.allDishes.push(myDish));
+            this.allDishes.sort((a, b) => {
               if(a.cookedDate === null && b.cookedDate === null){
                 return (a.established > b.established) ? -1 : 1;
               }else if(a.cookedDate === null){
@@ -41,9 +47,24 @@ export class MyDishesComponent implements OnInit {
               }
             });
           }
+          this.loadCooks();
+          if(this.cooks.length === 1){
+            this.myDishes = this.allDishes;
+          }
         },
-        error => this.myDishes = []
+        error => {
+          this.myDishes = [];
+          this.allDishes = [];
+        }
       );
+  }
+
+  loadCooks(){
+    this.cooks = [...new Set(this.allDishes.map(x => x.userFullName))];
+  }
+
+  loadDishesByCook(){
+    this.myDishes = this.allDishes.filter(x => x.userFullName === this.selectedCook);
   }
 
   private isEmpty(){
