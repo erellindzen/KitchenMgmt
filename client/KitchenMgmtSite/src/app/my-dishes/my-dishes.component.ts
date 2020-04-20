@@ -105,6 +105,7 @@ export class MyDishesComponent implements OnInit {
             data.body['preperationSteps'].forEach(s => this.currentDish.preperationSteps.push(s));
             this.currentDish.title = data.body['title'];
           }
+          console.log(this.currentDish);
         },
         error => this.currentDish = new Dish(0, '', [], 0, [], 0, '', 0)
       );

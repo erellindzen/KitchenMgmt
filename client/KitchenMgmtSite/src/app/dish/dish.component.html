@@ -15,10 +15,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let ing of dish.ingerdients" [ngClass]="{alert: !ing.existInStock}">
+                <tr *ngFor="let ing of dish.ingerdients" [ngClass]="{lowAlert: ing.belowThreshold, alert: !ing.existInStock}">
                     <td>{{ ing.title }}</td>
                     <td>{{ ing.quantity + ' ' + ing.unitTitle }}</td>
-                    <td><img [ngClass]="{imageNotActive: ing.existInStock}" class="outOfStock" src="../../assets/images/outOfStock.jpg"></td>
+                    <td>
+                        <img *ngIf="!ing.belowThreshold" [ngClass]="{imageNotActive: ing.existInStock}" 
+                            class="outOfStock" 
+                            src="../../assets/images/outOfStock.jpg">
+                        <img *ngIf="ing.belowThreshold"
+                            class="outOfStock"
+                            src="../../assets/images/stockAlert.jpg">
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -30,5 +37,5 @@
         </ul>
     </div>   
     <button id="submitBtn" class="btn btn-primary" (click)="finishCook()" *ngIf="!isCooked">סיימתי לבשל</button> 
-    <small class="error-message" *ngIf="finishCookError">הייתה שגיאה בביצוע הפעולה</small>
+    <small class="error-message" *ngIf="finishCookError">יש להשלים את חומרי הגלם החסרים</small>
 </div>

@@ -19,6 +19,10 @@
     color: red;
 }
 
+.lowAlert{
+    color: blueviolet;
+}
+
 .outOfStock{
     height: 55Px;
 }

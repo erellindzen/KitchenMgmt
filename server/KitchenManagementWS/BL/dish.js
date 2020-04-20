@@ -137,12 +137,14 @@ function formatDishWithAvailableStock(dish, ingredients){
     dish.ingerdients.forEach(ing => {
         ingredient = (ingredients.filter(x => x.id == ing.id))[0];
         let existInStock = ingredient.quantity >= ing.quantity;
+        let belowThreshold = existInStock && ing.quantity < ingredient.threshold;
         let newItem = {
             id: ing.id,
             quantity: ing.quantity,
             title: ingredient.title,
             unitTitle: ingredient.unitTitle,
-            existInStock: existInStock
+            existInStock: existInStock,
+            belowThreshold: belowThreshold
         };
         newIngredientsList.push(newItem);
     });
