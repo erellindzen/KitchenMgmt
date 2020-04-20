@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { KmwsService } from '../kmws.service';
+import { KmwsService } from '../../kmws.service';
 
 @Component({
   selector: 'app-ingredient-form',

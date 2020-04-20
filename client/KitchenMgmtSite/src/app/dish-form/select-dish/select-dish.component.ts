@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, OnChanges, Input } from '@angular/core';
-import { Dish } from '../custom_models/dish';
-import { KmwsService } from '../kmws.service';
+import { Dish } from '../../custom_models/dish';
+import { KmwsService } from '../../kmws.service';
 
 @Component({
   selector: 'app-select-dish',
