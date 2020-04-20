@@ -12,7 +12,7 @@ export class MyDishesComponent implements OnInit {
   myDishes: Array<MyDish> = [];
   allDishes: Array<MyDish> = [];
   cooks = [];
-  selectedCook = 'בחר';
+  selectedCook = '';
   cardPressed = -1;
   currentDish: Dish = new Dish(0, '', [], 0, [], 0, '', 0);
 
@@ -50,6 +50,8 @@ export class MyDishesComponent implements OnInit {
           this.loadCooks();
           if(this.cooks.length === 1){
             this.myDishes = this.allDishes;
+          }else{
+            this.selectedCook = this.cooks[0];
           }
         },
         error => {
@@ -61,10 +63,14 @@ export class MyDishesComponent implements OnInit {
 
   loadCooks(){
     this.cooks = [...new Set(this.allDishes.map(x => x.userFullName))];
+    this.cooks.unshift(`בחר טבח`);
   }
 
   loadDishesByCook(){
     this.myDishes = this.allDishes.filter(x => x.userFullName === this.selectedCook);
+    if(this.cooks[0] === `בחר טבח`){
+      this.cooks.shift();
+    }
   }
 
   private isEmpty(){

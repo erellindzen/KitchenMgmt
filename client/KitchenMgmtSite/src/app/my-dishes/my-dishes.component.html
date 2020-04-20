@@ -1,16 +1,10 @@
 <div class="bg">
     <div class="container">
         <div class="selectDiv">
-            <select *ngIf="cooks.length > 1" 
-                    class="form-control cook-select"
-                    [ngModel]="selectedCook" 
-                    name="selectedCook" 
-                    (change)="loadDishesByCook()"
-                    >
-                <option *ngFor="let cook of cooks; let i = index"
-                        [ngValue]="cook"
-                        >{{ cook }}
-                        </option>
+            <select *ngIf="cooks.length > 1" class="form-control cook-select" [(ngModel)]="selectedCook" name="selectedCook" (change)="loadDishesByCook()">
+                <option *ngFor="let cook of cooks" [value]="cook" [selected]="true">
+                    {{ cook }}
+                </option>
             </select>
         </div>
         <h2 class="cookNameTitle" *ngIf="!isEmpty()">המנות של {{ myDishes[0].userFullName }}</h2>

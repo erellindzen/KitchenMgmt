@@ -86,10 +86,6 @@ module.exports.getIngredientsStatus = async () => {
             }), 0);
         }
 
-        if(ing.id === 4){
-            console.log(ingShippings, ingQuantity);
-        }
-
         if(ingQuantity > ing.threshold){
             ingredientsStatus.push({ingredient: ing, status: 2});
         }else if(ingQuantity <= ing.threshold && ingQuantity > 0){

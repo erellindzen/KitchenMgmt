@@ -24,13 +24,13 @@ router.post('/login', (req, res) => {
                 userBl.updateRefreshToken(user.id, refreshToken)
                     .then(user => res.json({jwt: token, refreshToken: refreshToken}))
                     .catch(err => {
-                        res.sendStatus(500);
+                        res.sendStatus(err.code);
                     })
                 
             }
         })
         .catch(err => {
-            res.sendStatus(500);
+            res.sendStatus(err.code);
         });
 });
 
