@@ -1,10 +1,13 @@
 <div class="container-fluid bg">
     <div class="container">
+        <div class="pannel searchInput">
+            <input class="form-control" type="text" placeholder="הקלד מילת חיפוש" (input)="onSearchChange($event.target.value)">
+        </div>
         <div class="pannel">
             <img  class="addButtonImage" src="../../assets//images/add_button2.png" title="הוסף רכיב למלאי" (click)="addIngredientPressed=!addIngredientPressed">
         </div>
         <app-ingredient-form *ngIf="addIngredientPressed" (ingredientAdded)="refreshList()"></app-ingredient-form>
-        <app-stock-list *ngFor="let ingredientsList of ingredients; let i=index"
+        <app-stock-list *ngFor="let ingredientsList of ingredientsSearched; let i=index"
                         [title]="listTitles[i]"
                         [ingredients]="ingredientsList"
                         [addShippingPressed]="addShippingPressed"

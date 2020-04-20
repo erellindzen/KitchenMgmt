@@ -9,6 +9,7 @@ import { Ingredient } from '../custom_models/ingredient';
 })
 export class StockComponent implements OnInit {
   private ingredients = [[], [], []];
+  private ingredientsSearched = [[], [], []];
   private addIngredientPressed = false;
   private addShippingPressed = false;
   private listTitles = ['מלאי תקין', 'מלאי מועט', 'מלאי ריק'];
@@ -28,20 +29,19 @@ export class StockComponent implements OnInit {
       .subscribe(
         data => {
           if(data.status != 200){
-            this.ingredients[0] = [];
-            this.ingredients[1] = [];
-            this.ingredients[2] = [];
+            this.ingredients = [[], [], []];
+            this.ingredientsSearched = [[], [], []];
           }
           else{
             this.setIngredients(data.body, 0, 2);
             this.setIngredients(data.body, 1, 1);
             this.setIngredients(data.body, 2, 0);
+            this.onSearchChange('');
           }
         },
         err => {
-          this.ingredients[0] = [];
-          this.ingredients[1] = [];
-          this.ingredients[2] = [];
+          this.ingredients = [[], [], []];
+          this.ingredientsSearched = [[], [], []];
         }
       );
   }
@@ -69,5 +69,11 @@ export class StockComponent implements OnInit {
         };
         return newIngredient;
     });
+  }
+
+  onSearchChange(searchPhrase: string){
+    for(let i = 0; i < this.ingredients.length; i++){
+      this.ingredientsSearched[i] = this.ingredients[i].filter(ing => ing.title.search(searchPhrase) > -1);
+    }
   }
 }
