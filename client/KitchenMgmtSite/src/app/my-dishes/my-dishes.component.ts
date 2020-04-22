@@ -63,7 +63,9 @@ export class MyDishesComponent implements OnInit {
 
   loadCooks(){
     this.cooks = [...new Set(this.allDishes.map(x => x.userFullName))];
-    this.cooks.unshift(`בחר טבח`);
+    if(this.cooks.length > 1){
+      this.cooks.unshift(`בחר טבח`);
+    }
   }
 
   loadDishesByCook(){

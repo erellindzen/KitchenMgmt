@@ -192,4 +192,8 @@ export class DishFormComponent implements OnInit {
     this.isErrorOnResponse = false;
     this.calculateSumPrice();
   }
+
+  onUpload(event){
+    console.log(event);
+  }
 }

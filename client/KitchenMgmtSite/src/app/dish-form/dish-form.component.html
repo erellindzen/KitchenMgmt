@@ -65,6 +65,9 @@
                 <label for="imageUrlInput">שם תמונת המנה</label>
                 <input type="text" class="form-control" id="imageUrlInput" placeholder="שם התמונה שמייצגת את המנה" required #imageUrl="ngModel" name="dish.imageUrl" [(ngModel)]="dish.imageUrl">
             </div>
+            <div class="form-group">
+                <app-file-upload></app-file-upload>
+            </div>
             <div class="form-group" *ngIf="currentDishTitle === 'מנה חדשה'">
                 <label for="categorySelect">קטגוריה של המנה</label>
                 <select id="categorySelect" class="form-control" [(ngModel)]="dish.categoryId" name="dish.categoryId">
