@@ -57,7 +57,7 @@ module.exports.getMaxId = () => {
     });
 };
 
-module.exports.create = (id, title, preperationSteps, duration, ingerdients, numberOfDines, imageUrl,categoryId) => {
+module.exports.create = (id, title, preperationSteps, duration, ingerdients, numberOfDines, imageUrl,categoryId, videoGuide) => {
     return new Promise((resolve, reject) => {
         let newDish = new dishSchema({
             id: id,
@@ -67,7 +67,8 @@ module.exports.create = (id, title, preperationSteps, duration, ingerdients, num
             ingerdients: ingerdients,
             numberOfDines: numberOfDines,
             imageUrl: imageUrl,
-            categoryId: categoryId
+            categoryId: categoryId,
+            videoGuide: videoGuide
         });
         
         newDish.save()
@@ -79,7 +80,7 @@ module.exports.create = (id, title, preperationSteps, duration, ingerdients, num
     });
 };
 
-module.exports.update = (id, title, preperationSteps, duration, ingerdients, numberOfDines, imageUrl,categoryId) => {
+module.exports.update = (id, title, preperationSteps, duration, ingerdients, numberOfDines, imageUrl,categoryId, videoGuide) => {
     return new Promise((resolve, reject) => {
         const filter = { id: id };
         let objForUpdate = {}; 
@@ -98,6 +99,8 @@ module.exports.update = (id, title, preperationSteps, duration, ingerdients, num
             objForUpdate.imageUrl = imageUrl;
         if(categoryId)
             objForUpdate.categoryId = categoryId;
+        if(videoGuide)
+            objForUpdate.videoGuide = videoGuide;
 
         dishSchema.findOneAndUpdate(filter, objForUpdate, {new: true}, (err, doc) => {
             if(err){

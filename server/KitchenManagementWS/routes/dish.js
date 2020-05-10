@@ -1,6 +1,21 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+var path = require('path')
+
 const dishBl = require('../bl/dish');
+
+// SET STORAGE
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'media/dish/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' +  new Date().toISOString().replace(/:/g, '-') + path.extname(file.originalname))
+  }
+})
+ 
+const upload = multer({ storage: storage })
 
 router.get('/', (req, res) => {
   dishBl.getAll()
@@ -26,14 +41,15 @@ router.get('/category/:categoryId', (req, res) => {
       });
 });
 
-router.post('/', (req, res) => {
+router.post('/', upload.single('videoGuide'), (req, res) => {
   dishBl.create(req.body.title, 
                 req.body.preperationSteps, 
                 req.body.duration, 
                 req.body.ingredients, 
                 req.body.numberOfDines, 
                 req.body.imageUrl, 
-                req.body.categoryId)
+                req.body.categoryId,
+                req.file.path)
     .then(data => res.send(data))
     .catch(err => {
       res.sendStatus(err.code);

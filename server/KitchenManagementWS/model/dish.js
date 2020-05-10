@@ -13,7 +13,8 @@ const dishSchema = new Schema(
         }],
         numberOfDines: Number,
         imageUrl: String,
-        categoryId: Number
+        categoryId: Number,
+        videoGuide: String
     }
 );
 

@@ -52,9 +52,9 @@ module.exports.getByCategoryId = (caegoryId) => {
     });
 };
 
-module.exports.create = (title, preperationSteps, duration, ingredients, numberOfDines, imageUrl, categoryId) => {
+module.exports.create = (title, preperationSteps, duration, ingredients, numberOfDines, imageUrl, categoryId, videoGuide) => {
     return new Promise((resolve, reject) => {
-        if(!title || !preperationSteps || !duration || !ingredients || !numberOfDines || !imageUrl || !categoryId){
+        if(!title || !preperationSteps || !duration || !ingredients || !numberOfDines || !imageUrl || !categoryId || !videoGuide){
             reject(new KMError(400, " Missed parameters."));
         }
 
@@ -70,7 +70,7 @@ module.exports.create = (title, preperationSteps, duration, ingredients, numberO
                         dishRepository.getMaxId()
                         .then(data => {
                             let id = (data.length === 0) ? 1 : data[0].id + 1;
-                            dishRepository.create(id, title, preperationSteps, duration, ingredients, numberOfDines, imageUrl, categoryId)
+                            dishRepository.create(id, title, preperationSteps, duration, ingredients, numberOfDines, imageUrl, categoryId, videoGuide)
                                 .then(data => resolve(data))
                                 .catch(err => reject(new KMError(500, err)));
                         })
@@ -86,9 +86,9 @@ module.exports.create = (title, preperationSteps, duration, ingredients, numberO
     });
 };
 
-module.exports.update = (id, title, preperationSteps, duration, ingredients, numberOfDines, imageUrl, categoryId) => {
+module.exports.update = (id, title, preperationSteps, duration, ingredients, numberOfDines, imageUrl, categoryId, videoGuide) => {
     return new Promise((resolve, reject) => {
-        if(!title || !preperationSteps || !duration || !ingredients || !numberOfDines || !imageUrl || !categoryId){
+        if(!title || !preperationSteps || !duration || !ingredients || !numberOfDines || !imageUrl || !categoryId || !videoGuide){
             reject(new KMError(400, "Missed parameters."));
         }
 
@@ -103,7 +103,7 @@ module.exports.update = (id, title, preperationSteps, duration, ingredients, num
                         .then(category => {
                             this.getById(id)
                                 .then(dish => {
-                                    dishRepository.update(id, title, preperationSteps, duration, ingredients, numberOfDines, imageUrl, categoryId)
+                                    dishRepository.update(id, title, preperationSteps, duration, ingredients, numberOfDines, imageUrl, categoryId, videoGuide)
                                         .then(data => resolve(data))
                                         .catch(err => reject(new KMError(500, err)));
                                 })
