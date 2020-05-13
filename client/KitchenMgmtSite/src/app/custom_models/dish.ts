@@ -7,6 +7,7 @@ export class Dish {
         public ingerdients: Array<{id: number, quantity: number, title: string, unitTitle: string, existInStock: boolean, belowThreshold: boolean}>,
         public numberOfDines: number,
         public imageUrl: string,
-        public categoryId: number
+        public categoryId: number,
+        public videoGuide: string
     ){}
 }

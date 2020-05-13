@@ -42,6 +42,7 @@ router.get('/category/:categoryId', (req, res) => {
 });
 
 router.post('/', upload.single('videoGuide'), (req, res) => {
+  console.log(req.body, req.file);
   dishBl.create(req.body.title, 
                 req.body.preperationSteps, 
                 req.body.duration, 

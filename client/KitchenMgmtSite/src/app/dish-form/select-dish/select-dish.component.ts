@@ -50,7 +50,7 @@ export class SelectDishComponent implements OnInit, OnChanges {
           }
         },
         error => this.dishes = [],
-        () => this.dishes.unshift(new Dish(0, 'מנה חדשה', [], 0, [], 0, '',0))
+        () => this.dishes.unshift(new Dish(0, 'מנה חדשה', [], 0, [], 0, '',0, ''))
       );
   }
 

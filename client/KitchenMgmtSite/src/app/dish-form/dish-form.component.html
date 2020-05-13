@@ -66,7 +66,17 @@
                 <input type="text" class="form-control" id="imageUrlInput" placeholder="שם התמונה שמייצגת את המנה" required #imageUrl="ngModel" name="dish.imageUrl" [(ngModel)]="dish.imageUrl">
             </div>
             <div class="form-group">
-                <app-file-upload></app-file-upload>
+                <label for="inputGroupFile01">העלאת סרטון הדרכה</label>
+                <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="inputGroupFile01"
+                        aria-describedby="inputGroupFileAddon01"
+                        #videoGuide="ngModel" name="dish.videoGuide" [(ngModel)]="dish.videoGuide"
+                        (change)=onVideoGuideChanged($event)
+                        accept="video/*">
+                      <label class="custom-file-label" for="inputGroupFile01" id="videoGuideLabel"></label>
+                    </div>
+                </div>
             </div>
             <div class="form-group" *ngIf="currentDishTitle === 'מנה חדשה'">
                 <label for="categorySelect">קטגוריה של המנה</label>

@@ -14,7 +14,7 @@ export class MyDishesComponent implements OnInit {
   cooks = [];
   selectedCook = '';
   cardPressed = -1;
-  currentDish: Dish = new Dish(0, '', [], 0, [], 0, '', 0);
+  currentDish: Dish = new Dish(0, '', [], 0, [], 0, '', 0, '');
 
   constructor(private kmws: KmwsService) { }
 
@@ -94,7 +94,7 @@ export class MyDishesComponent implements OnInit {
       .subscribe(
         data => {
           if(data.status != 200){
-            this.currentDish = new Dish(0, '', [], 0, [], 0, '', 0);
+            this.currentDish = new Dish(0, '', [], 0, [], 0, '', 0, '');
           }else{
             this.currentDish.categoryId = data.body['categoryId'];
             this.currentDish.duration = data.body['duration'];
@@ -109,7 +109,7 @@ export class MyDishesComponent implements OnInit {
           }
           console.log(this.currentDish);
         },
-        error => this.currentDish = new Dish(0, '', [], 0, [], 0, '', 0)
+        error => this.currentDish = new Dish(0, '', [], 0, [], 0, '', 0, '')
       );
   }
 

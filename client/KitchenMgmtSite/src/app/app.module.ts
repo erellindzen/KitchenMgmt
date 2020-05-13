@@ -29,7 +29,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { BarChartComponent } from './dashboard/bar-chart/bar-chart.component';
 import { StockListComponent } from './stock/stock-list/stock-list.component';
 import { NotificationComponent } from './dishes/notification/notification.component';
-import { FileUploadComponent } from './dish-form/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -54,8 +53,7 @@ import { FileUploadComponent } from './dish-form/file-upload/file-upload.compone
     DashboardComponent,
     BarChartComponent,
     StockListComponent,
-    NotificationComponent,
-    FileUploadComponent
+    NotificationComponent
   ],
   imports: [
     BrowserModule,

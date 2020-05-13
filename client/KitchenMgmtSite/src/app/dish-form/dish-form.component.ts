@@ -18,7 +18,8 @@ export class DishFormComponent implements OnInit {
     ingredients: [],
     numberOfDines: '',
     imageUrl: '',
-    categoryId: ''
+    categoryId: '',
+    videoGuide: ''
   };
   private newStep: string = undefined;
   private ingredients = [];
@@ -109,6 +110,7 @@ export class DishFormComponent implements OnInit {
   }
 
   sendForm(isValid){
+    console.log(this.dish);
     if(isValid){
       if(this.selectedId === 0){
         if(this.dish.ingredients.length > 0 && parseInt(this.dish.categoryId) > 0 && this.dish.preperationSteps.length > 0){
@@ -133,7 +135,8 @@ export class DishFormComponent implements OnInit {
                                     this.dish.ingredients,
                                     parseInt(this.dish.numberOfDines),
                                     this.dish.imageUrl,
-                                    parseInt(this.dish.categoryId));
+                                    parseInt(this.dish.categoryId),
+                                    this.dish.videoGuide);
         this.kmws.updateDish(updateDish)
         .subscribe(
           data => {
@@ -186,7 +189,8 @@ export class DishFormComponent implements OnInit {
       ingredients: [],
       numberOfDines: '',
       imageUrl: '',
-      categoryId: ''
+      categoryId: '',
+      videoGuide: ''
     };
 
     this.isErrorOnResponse = false;
@@ -195,5 +199,10 @@ export class DishFormComponent implements OnInit {
 
   onUpload(event){
     console.log(event);
+  }
+
+  onVideoGuideChanged(event){
+    console.log(event);
+    document.getElementById('videoGuideLabel').innerHTML = event.target.files[0].name;
   }
 }
